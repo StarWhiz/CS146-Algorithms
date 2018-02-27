@@ -1,6 +1,6 @@
 /**
  * "Introduction to Algorithms - Thomas H. Cormen". 3rd edition. (18).
- *    Pseudocode Translated By: Tai Dao
+ *    Insertion Sort Pseudocode Translated By: Tai Dao
  *    Date Written: 02/23/18
  */
 
@@ -10,8 +10,8 @@ public class InsertionSortTester {
 		int[] arrayToSort = {18, 25, 6, 9, 15, 12, 5, 20, 11, 30};
 		int key;
 		int i;
-		
-		for (int j = 1; j < arrayToSort.length ; j++) {
+		printArray(arrayToSort);
+		for (int j = 2; j < arrayToSort.length - 1 ; j++) {
 			key = arrayToSort[j];
 			// Inserting key into sorted Array
 			i = j - 1;
