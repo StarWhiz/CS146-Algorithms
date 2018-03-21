@@ -4,17 +4,37 @@
  * @author Tai Dao
  *
  */
+
+import java.util.Arrays;
+
 public class MultiTaskingSimulator {
 
 	public static void main(String[] args) {
-		int[] A = {18, 25, 6, 9, 15, 12, 5, 20, 11, 30};
-		int r = A.length -1;
+		int[] A = new int[20];
+		initializeArray(A); // A now has 20 random numbers from 1-9999 simulating PIDs
+		int aLength = A.length -1; // length of A
+		System.out.println("This are the initial PIDs loaded: ");
+		printArray(A);
 		
-		BuildMaxHeap(A);
-		PrintMenu();
+		buildMaxHeap(A);
+		printMenu();
 	}
 	
-	private static void MaxHeapify (int[] A, int i) {
+	/**
+	 * This function takes an integer array and initializes it with
+	 * random numbers from 1 to 9999.
+	 * 
+	 * @param int[] A
+	 * @return int[] A
+	 */
+	private static int[] initializeArray (int[] A) {
+		for(int i = 0; i < A.length; i++) {
+			A[i] = (int)(Math.random()*9999 + 1);
+		}
+		return A;
+	}
+	
+	private static void maxHeapify (int[] A, int i) {
 		int largest;
 		int a_heapSize = A.length - 1;
 		
@@ -37,7 +57,7 @@ public class MultiTaskingSimulator {
 	}
 	
 	// TODO
-	private static void BuildMaxHeap(int[] A) {
+	private static void buildMaxHeap(int[] A) {
 		int a_length = A.length - 1;
 		int a_heapSize = a_length;
 		for (int i = 0; i < a_length/2; i++ ) {
@@ -45,11 +65,19 @@ public class MultiTaskingSimulator {
 	}
 	
 	/**
-	 * This Method Prints the menu
+	 * This function prints the menu for the user interface.
 	 */
-	private static void PrintMenu() {
+	private static void printMenu() {
 		// TODO Auto-generated method stub
 		System.out.println("Hello World");
+	}
+	
+	/**
+	 * This function prints an array that was passed to it.
+	 * @param array
+	 */
+	private static void printArray(int[] array) {
+		   System.out.println(Arrays.toString(array));
 	}
 }
 
