@@ -6,34 +6,17 @@
  */
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class MultiTaskingSimulator {
 
 	public static void main(String[] args) {
-		
-		//int[] A = {12, 11, 3, 17, 13, 4, 1, 7, 19, 18, 15, 5, 17, 2, 20, 10, 14, 5, 6, 16}; //test PIDs
-		int[] A = new int[20];
-		initializeArray(A); // A now has 20 random numbers from 1-9999 simulating PIDs
-		int aLength = A.length -1; // length of A
-		
-		System.out.println("This are the initial PIDs loaded: ");
-		printArray(A);
-		
-		buildMaxHeap(A);
-		printArray(A);
-		//printMenu();
-	}
-	
-	/**
-	 * This function takes an integer array and initializes it with
-	 * random numbers from 1 to 9999.
-	 * 
-	 * @param int[] A
-	 */
-	private static void initializeArray (int[] A) {
-		for(int i = 0; i < A.length; i++) {
-			A[i] = (int)(Math.random()*9999 + 1);
+		ArrayList <Process> A = new ArrayList<Process> ();
+		for (int i = 0; i < 20 ; i++) {
+			A.add(new Process()); // add 20 Processes into ArrayList
 		}
+		
+		printArrayList(A);
 	}
 	
 	/**
@@ -93,11 +76,18 @@ public class MultiTaskingSimulator {
 	}
 	
 	/**
-	 * This function prints an array that was passed to it.
-	 * @param array
+	 * This function prints the priorities of all elements of the
+	 * ArrayList <Process> that was passed to it.
+	 * 
+	 * @param ArrayList<Process>
 	 */
-	private static void printArray(int[] array) {
-		   System.out.println(Arrays.toString(array));
+	private static void printArrayList(ArrayList<Process> A) {
+		for (int i = 0; i < A.size() ; i++) {
+			System.out.print(A.get(i).getPriority() + " ");
+			if (i == A.size()/2) {
+				System.out.println();
+			}
+		}
 	}
 }
 
