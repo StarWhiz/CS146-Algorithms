@@ -1,6 +1,6 @@
 /**
  * 
- * 
+ *  Due Friday Next Week 11:59 PM. March 30.
  * @author Tai Dao
  *
  */
@@ -10,6 +10,12 @@ import java.util.Arrays;
 public class MultiTaskingSimulator {
 
 	public static void main(String[] args) {
+		
+		//P1, P2, P3, P4... Hmmm...	
+		//Don't worry about handling time.
+		//User can increase key and time. Meaning they can change they key ( the priority )
+		//Unique priority index....
+
 		
 		//int[] A = {12, 11, 3, 17, 13, 4, 1, 7, 19, 18, 15, 5, 17, 2, 20, 10, 14, 5, 6, 16}; //test PIDs
 		int[] A = new int[20];
