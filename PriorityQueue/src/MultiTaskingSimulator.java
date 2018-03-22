@@ -13,8 +13,15 @@ public class MultiTaskingSimulator {
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		for (int i = 0; i < 20 ; i++) {
-			A.add(new Process()); // add 20 Processes into ArrayList
+			A.add(new Process(i));
+			//A.add(new Process()); // add 20 Processes into ArrayList
 		}
+		
+		printArrayList(A);
+		buildMaxHeap(A);
+		
+		System.out.println();
+		System.out.println();
 		
 		printArrayList(A);
 	}
@@ -23,10 +30,8 @@ public class MultiTaskingSimulator {
 	 * This function takes an integer array and makes it adhere to the max heap property.
 	 * @param int[] A
 	 */
-	private static void buildMaxHeap(int[] A) {
-		int a_heapSize =  A.length - 1; // not sure why this was in the pseudo-code...
-		for (int i = (A.length - 1)/2; i >= 0; i-- ) {
-			System.out.println(i);
+	private static void buildMaxHeap(ArrayList<Process> A) {
+		for (int i = A.size()/2; i >= 0; i--) {
 			maxHeapify(A, i);
 		}
 	}
@@ -37,34 +42,32 @@ public class MultiTaskingSimulator {
 	 * @param int[] A
 	 * @param i
 	 */
-	private static void maxHeapify (int[] A, int i) {
+	private static void maxHeapify (ArrayList<Process> A, int i) {
 		int largest = i;
-		int a_heapSize = (A.length -1);
+
+		
+		int a_heapSize = A.size();
+		System.out.println("problem size:" + a_heapSize);
 	
-		int l = 2*i ; //not sure
-		int r = 2*i + 1; //not sure
-		if (l <= a_heapSize && A[l] > A[i]) {
+		int l = 2*i;
+		System.out.println("problem int l:" + l);
+		int r = 2*i + 1;
+
+		if (l <= a_heapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
 			largest = l;
 		}
 		else {
 			largest = i;
 		}
-		if (r <= a_heapSize && A[r] > A[largest]) {
+		if (r <= a_heapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
 			largest = r;
 		}
 		if (largest != i) {
-			//swapElements(A[i],A[largest], A);
-			  int t = A[i];
-			  A[i] = A[largest];
-			  A[largest] = t;
+			swapArrayElements(i, largest, A);
 			maxHeapify(A,largest);
 		}
-	}
-	//
-	//private static void swapElements(int i, int j, int[] A) {
-	//
-	//}
 	
+	}
 
 	
 	/**
@@ -89,5 +92,17 @@ public class MultiTaskingSimulator {
 			}
 		}
 	}
+	
+	private static void swapArrayElements(int i, int j, ArrayList<Process> A) {
+		//System.out.println("Swapping i: " + A.get(i).getPriority());
+		//System.out.println("Swapping largest: " + A.get(j).getPriority());
+		int z = A.get(i).getPriority();
+		A.get(i).setPriority(A.get(j).getPriority());
+		A.get(j).setPriority(z);
+		
+		//System.out.println("i is now: " + A.get(i).getPriority());
+		//System.out.println("largest is now: " + A.get(j).getPriority());
+	}
+	
 }
 

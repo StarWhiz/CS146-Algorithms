@@ -10,6 +10,11 @@ public class Process {
 		priority = (int) (Math.random()*9999 + 1);
 	}
 	
+	//This constructor is for testing purposes
+	Process(int i) {
+		priority = i;
+	}
+	
 	/**
 	 * This function returns the priority of the Process
 	 * 
@@ -17,6 +22,14 @@ public class Process {
 	 */
 	public int getPriority (){
 		return priority;
+	}
+	
+	/**
+	 * This function takes an int and sets priority to it
+	 * @param p
+	 */
+	public void setPriority(int p) {
+		priority = p;
 	}
 	
 	/**
