@@ -31,7 +31,9 @@ public class MultiTaskingSimulator {
 	 * @param int[] A
 	 */
 	private static void buildMaxHeap(ArrayList<Process> A) {
-		for (int i = A.size()/2; i >= 0; i--) {
+		int aHeapSize = A.size();
+		for (int i = aHeapSize/2; i >= 0; i--) {
+		
 			maxHeapify(A, i);
 		}
 	}
@@ -43,7 +45,7 @@ public class MultiTaskingSimulator {
 	 * @param i
 	 */
 	private static void maxHeapify (ArrayList<Process> A, int i) {
-		int largest = i;
+		int largest;
 
 		
 		int a_heapSize = A.size();
@@ -53,13 +55,13 @@ public class MultiTaskingSimulator {
 		System.out.println("problem int l:" + l);
 		int r = 2*i + 1;
 
-		if (l <= a_heapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
+		if (l < a_heapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
 			largest = l;
 		}
 		else {
 			largest = i;
 		}
-		if (r <= a_heapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
+		if (r < a_heapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
 			largest = r;
 		}
 		if (largest != i) {
