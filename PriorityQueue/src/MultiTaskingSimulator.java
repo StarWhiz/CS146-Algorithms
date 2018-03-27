@@ -4,52 +4,40 @@
  * @author Tai Dao
  *
  */
-
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class MultiTaskingSimulator {
-
+	static int a_HeapSize;
+	
 	public static void main(String[] args) {
+		ArrayList <Process> A = new ArrayList<Process> ();
+		int currentPID;
 		
-		//P1, P2, P3, P4... Hmmm...	
-		//Don't worry about handling time.
-		//User can increase key and time. Meaning they can change they key ( the priority )
-		//Unique priority index....
 
-		
-		//int[] A = {12, 11, 3, 17, 13, 4, 1, 7, 19, 18, 15, 5, 17, 2, 20, 10, 14, 5, 6, 16}; //test PIDs
-		int[] A = new int[20];
-		initializeArray(A); // A now has 20 random numbers from 1-9999 simulating PIDs
-		int aLength = A.length -1; // length of A
-		
-		System.out.println("This are the initial PIDs loaded: ");
-		printArray(A);
-		
-		buildMaxHeap(A);
-		printArray(A);
-		//printMenu();
-	}
-	
-	/**
-	 * This function takes an integer array and initializes it with
-	 * random numbers from 1 to 9999.
-	 * 
-	 * @param int[] A
-	 */
-	private static void initializeArray (int[] A) {
-		for(int i = 0; i < A.length; i++) {
-			A[i] = (int)(Math.random()*9999 + 1);
+		for (int i = 0; i < 15 ; i++) {
+			//A.add(new Process(i));
+			currentPID = i;
+			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
+    
+		printArrayList(A);
+		//buildMaxHeap(A);
+		heapSort(A);
+		
+		System.out.println();
+		System.out.println();
+		
+		printArrayList(A);
 	}
 	
 	/**
-	 * This function takes an integer array and makes it adhere to the max heap property.
-	 * @param int[] A
+	 * This function takes an ArrayList of Processes and makes their priorities adhere to the max heap property.
+	 * @param ArrayList<Process> A
 	 */
-	private static void buildMaxHeap(int[] A) {
-		int a_heapSize =  A.length - 1; // not sure why this was in the pseudo-code...
-		for (int i = (A.length - 1)/2; i >= 0; i-- ) {
-			System.out.println(i);
+	
+	private static void buildMaxHeap(ArrayList<Process> A) {
+		a_HeapSize = A.size()-1; //(element of last index is ArraySize minus 1)
+		for (int i = (A.size()-1)/2; i >= 0; i--) {
 			maxHeapify(A, i);
 		}
 	}
@@ -57,37 +45,42 @@ public class MultiTaskingSimulator {
 	/**
 	 * This function is used by buildMaxHeap to recursively swap children nodes with 
 	 * parent nodes if the child node is greater than the parent node.
-	 * @param int[] A
+	 * @param ArrayList<Process> A
 	 * @param i
 	 */
-	private static void maxHeapify (int[] A, int i) {
-		int largest = i;
-		int a_heapSize = (A.length -1);
-	
-		int l = 2*i ; //not sure
-		int r = 2*i + 1; //not sure
-		if (l <= a_heapSize && A[l] > A[i]) {
+	private static void maxHeapify (ArrayList<Process> A, int i) {
+		int largest;
+
+		int l = 2*i;
+		int r = 2*i + 1;
+
+		if (l <= a_HeapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
 			largest = l;
 		}
 		else {
 			largest = i;
 		}
-		if (r <= a_heapSize && A[r] > A[largest]) {
+		if (r <= a_HeapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
 			largest = r;
 		}
 		if (largest != i) {
-			//swapElements(A[i],A[largest], A);
-			  int t = A[i];
-			  A[i] = A[largest];
-			  A[largest] = t;
+			swapArrayElements(i, largest, A);
 			maxHeapify(A,largest);
 		}
 	}
-	//
-	//private static void swapElements(int i, int j, int[] A) {
-	//
-	//}
 	
+	/**
+	 * 
+	 * @param A
+	 */
+	public static void heapSort(ArrayList<Process> A) {
+		buildMaxHeap(A);	
+		for (int i = a_HeapSize; i >= 1 ; i--) {
+			swapArrayElements(0, i, A);
+			a_HeapSize--;
+			maxHeapify(A,0);
+		}
+	}
 
 	
 	/**
@@ -99,11 +92,32 @@ public class MultiTaskingSimulator {
 	}
 	
 	/**
-	 * This function prints an array that was passed to it.
-	 * @param array
+	 * This function prints the priorities of all elements of the
+	 * ArrayList <Process> that was passed to it.
+	 * 
+	 * @param ArrayList<Process>
 	 */
-	private static void printArray(int[] array) {
-		   System.out.println(Arrays.toString(array));
+	private static void printArrayList(ArrayList<Process> A) {
+		for (int i = 0; i < A.size() ; i++) {
+			System.out.print(A.get(i).getPriority() + " ");
+			if (i == A.size()/2) {
+				System.out.println();
+			}
+		}
 	}
+	
+	/**
+	 * This method swaps the priorities of the selected processes from an ArrayList of processes
+	 * 
+	 * @param index i
+	 * @param index j
+	 * @param ArrayList<Process> A
+	 */
+	private static void swapArrayElements(int i, int j, ArrayList<Process> A) {
+		int z = A.get(i).getPriority();
+		A.get(i).setPriority(A.get(j).getPriority());
+		A.get(j).setPriority(z);		
+	}
+	
 }
 
