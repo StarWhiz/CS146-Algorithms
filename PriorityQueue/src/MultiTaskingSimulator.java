@@ -12,14 +12,17 @@ public class MultiTaskingSimulator {
 
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
+		int currentPID;
 		
 		for (int i = 0; i < 20 ; i++) {
 			//A.add(new Process(i));
+			currentPID = i;
 			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
 		
 		printArrayList(A);
-		buildMaxHeap(A);
+		//buildMaxHeap(A);
+		heapSort(A);
 		
 		System.out.println();
 		System.out.println();
@@ -33,10 +36,10 @@ public class MultiTaskingSimulator {
 	 */
 	
 	private static void buildMaxHeap(ArrayList<Process> A) {
-		int aHeapSize = A.size();
-		for (int i = aHeapSize/2; i >= 0; i--) {
-		
+		int a_HeapSize = A.size()-1; //(last element index is ArraySize minus 1)
+		for (int i = a_HeapSize/2; i > 0; i--) {
 			maxHeapify(A, i);
+			System.out.println("\nWhat is the last i?" + i );
 		}
 	}
 	
@@ -49,6 +52,7 @@ public class MultiTaskingSimulator {
 	private static void maxHeapify (ArrayList<Process> A, int i) {
 		int largest;
 		int a_heapSize = A.size();
+
 		int l = 2*i;
 		int r = 2*i + 1;
 
@@ -64,6 +68,26 @@ public class MultiTaskingSimulator {
 		if (largest != i) {
 			swapArrayElements(i, largest, A);
 			maxHeapify(A,largest);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param A
+	 */
+	public static void heapSort(ArrayList<Process> A) {
+		buildMaxHeap(A);
+		int a_HeapSize = A.size() - 1;
+		System.out.println("\nThe Problem Size: " + a_HeapSize); //hjmm
+		
+		for (int i = a_HeapSize; i > 1 ; i--) {
+			System.out.println("\nThe Problem Index: " + i);
+			swapArrayElements(0, i, A);
+			
+			
+			
+			System.out.println("\n Is HeapSize Decreasing? " + a_HeapSize); //hjmm
+			maxHeapify(A,1);
 		}
 	}
 
