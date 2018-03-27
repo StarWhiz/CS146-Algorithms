@@ -32,6 +32,7 @@ public class MultiTaskingSimulator {
 		System.out.println();
 		System.out.println(heapExtractMax(A));
 		System.out.println();
+		heapIncreaseKey(A, 5, 99);
 		
 		printArrayList(A);
 	}
@@ -141,9 +142,9 @@ public class MultiTaskingSimulator {
 			throw new RuntimeException("Error: New key is smaller than current key.");
 		}
 		A.get(i).setPriority(key);
-		while (i > 1) { // i = 0??? because java?
-			swapArrayElements(i, 0, A); // check pseudocode
-			//i = Parent(i) is that 0?
+		while (i > 0 && (A.get(0).getPriority() < A.get(i).getPriority())) { // i = 0??? because java?
+			swapArrayElements(i, 0, A);
+			i = 0; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
 		}
 	}
 	
