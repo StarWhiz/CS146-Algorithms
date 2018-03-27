@@ -4,17 +4,16 @@
  * @author Tai Dao
  *
  */
-
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class MultiTaskingSimulator {
-
+	static int a_HeapSize;
+	
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		int currentPID;
 		
-		for (int i = 0; i < 20 ; i++) {
+		for (int i = 0; i < 15 ; i++) {
 			//A.add(new Process(i));
 			currentPID = i;
 			A.add(new Process(i)); // add 20 Processes into ArrayList
@@ -36,10 +35,9 @@ public class MultiTaskingSimulator {
 	 */
 	
 	private static void buildMaxHeap(ArrayList<Process> A) {
-		int a_HeapSize = A.size()-1; //(last element index is ArraySize minus 1)
-		for (int i = a_HeapSize/2; i > 0; i--) {
+		a_HeapSize = A.size()-1; //(element of last index is ArraySize minus 1)
+		for (int i = (A.size()-1)/2; i >= 0; i--) {
 			maxHeapify(A, i);
-			System.out.println("\nWhat is the last i?" + i );
 		}
 	}
 	
@@ -51,18 +49,17 @@ public class MultiTaskingSimulator {
 	 */
 	private static void maxHeapify (ArrayList<Process> A, int i) {
 		int largest;
-		int a_heapSize = A.size();
 
 		int l = 2*i;
 		int r = 2*i + 1;
 
-		if (l < a_heapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
+		if (l <= a_HeapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
 			largest = l;
 		}
 		else {
 			largest = i;
 		}
-		if (r < a_heapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
+		if (r <= a_HeapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
 			largest = r;
 		}
 		if (largest != i) {
@@ -76,18 +73,11 @@ public class MultiTaskingSimulator {
 	 * @param A
 	 */
 	public static void heapSort(ArrayList<Process> A) {
-		buildMaxHeap(A);
-		int a_HeapSize = A.size() - 1;
-		System.out.println("\nThe Problem Size: " + a_HeapSize); //hjmm
-		
-		for (int i = a_HeapSize; i > 1 ; i--) {
-			System.out.println("\nThe Problem Index: " + i);
+		buildMaxHeap(A);	
+		for (int i = a_HeapSize; i >= 1 ; i--) {
 			swapArrayElements(0, i, A);
-			
-			
-			
-			System.out.println("\n Is HeapSize Decreasing? " + a_HeapSize); //hjmm
-			maxHeapify(A,1);
+			a_HeapSize--;
+			maxHeapify(A,0);
 		}
 	}
 
