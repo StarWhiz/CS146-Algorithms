@@ -1,18 +1,15 @@
 
 public class Process {
 	private int priority;
+	private String processID;
 	
 	/**
 	 * This constructor initializes the priority of the Process when it is created
 	 * with a random number from 1 to 9999.
 	 */
-	Process() {
-		priority = (int) (Math.random()*9999 + 1);
-	}
-	
-	//This constructor is for testing purposes
 	Process(int i) {
-		priority = i;
+		priority = (int) (Math.random()*9999 + 1);
+		processID = "P" + i;
 	}
 	
 	/**
@@ -22,6 +19,15 @@ public class Process {
 	 */
 	public int getPriority (){
 		return priority;
+	}
+	
+	/**
+	 * This function returns the PID of the Process
+	 * 
+	 * @return int priority
+	 */
+	public String getPID (){
+		return processID;
 	}
 	
 	/**
