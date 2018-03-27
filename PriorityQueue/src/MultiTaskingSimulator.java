@@ -1,6 +1,6 @@
 /**
  * 
- * 
+ *  Due Friday Next Week 11:59 PM. March 30.
  * @author Tai Dao
  *
  */
@@ -13,12 +13,13 @@ public class MultiTaskingSimulator {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		int currentPID;
 		
+
 		for (int i = 0; i < 15 ; i++) {
 			//A.add(new Process(i));
 			currentPID = i;
 			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
-		
+    
 		printArrayList(A);
 		//buildMaxHeap(A);
 		heapSort(A);
