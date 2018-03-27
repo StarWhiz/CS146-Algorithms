@@ -21,10 +21,16 @@ public class MultiTaskingSimulator {
 		}
     
 		printArrayList(A);
-		//buildMaxHeap(A);
-		heapSort(A);
+		buildMaxHeap(A);
+		//heapSort(A);
 		
 		System.out.println();
+		System.out.println();
+		printArrayList(A);
+		
+		System.out.println();
+		System.out.println();
+		System.out.println(heapExtractMax(A));
 		System.out.println();
 		
 		printArrayList(A);
@@ -34,13 +40,13 @@ public class MultiTaskingSimulator {
 	 * This function takes an ArrayList of Processes and makes their priorities adhere to the max heap property.
 	 * @param ArrayList<Process> A
 	 */
-	
 	private static void buildMaxHeap(ArrayList<Process> A) {
 		a_HeapSize = A.size()-1; //(element of last index is ArraySize minus 1)
 		for (int i = (A.size()-1)/2; i >= 0; i--) {
 			maxHeapify(A, i);
 		}
 	}
+	
 	
 	/**
 	 * This function is used by buildMaxHeap to recursively swap children nodes with 
@@ -70,8 +76,9 @@ public class MultiTaskingSimulator {
 	}
 	
 	/**
+	 * This function performs a heapsort of the ArrayList of Proccses by priority
 	 * 
-	 * @param A
+	 * @param ArrayList<Process> A
 	 */
 	public static void heapSort(ArrayList<Process> A) {
 		buildMaxHeap(A);	
@@ -81,7 +88,32 @@ public class MultiTaskingSimulator {
 			maxHeapify(A,0);
 		}
 	}
-
+	
+	/**
+	 * This function extracts the process of the highest priority from the heap.
+	 * 
+	 * @param ArrayList<Process> A
+	 */
+	public static int heapExtractMax(ArrayList<Process> A) {
+		if (a_HeapSize < 0) {
+			throw new RuntimeException("Heap Underflow.");
+		}
+		int max = A.get(0).getPriority();
+		A.get(0).setPriority(A.get(a_HeapSize).getPriority());
+		a_HeapSize--;
+		maxHeapify(A,0);
+		return max;
+	}
+	
+	/**
+	 * This function returns a process with the highest priority from the heap.
+	 * 
+	 * @param ArrayList<Process> A
+	 */
+	public static int heapMaximum(ArrayList<Process> A) {
+		return A.get(0).getPriority();
+	}
+	
 	
 	/**
 	 * This function prints the menu for the user interface.
