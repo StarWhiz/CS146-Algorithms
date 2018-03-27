@@ -12,7 +12,6 @@ public class MultiTaskingSimulator {
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		int currentPID;
-		
 
 		for (int i = 0; i < 15 ; i++) {
 			//A.add(new Process(i));
@@ -20,9 +19,10 @@ public class MultiTaskingSimulator {
 			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
     
+		printMenu();
 		printArrayList(A);
 		buildMaxHeap(A);
-		//heapSort(A);
+		//heapSort(A); // Wow we don't even need to do heapSort to do a priority queue!
 		
 		System.out.println();
 		System.out.println();
@@ -76,7 +76,7 @@ public class MultiTaskingSimulator {
 	}
 	
 	/**
-	 * This function performs a heapsort of the ArrayList of Proccses by priority
+	 * This function performs a heapsort of the ArrayList of Processes by priority
 	 * 
 	 * @param ArrayList<Process> A
 	 */
@@ -90,13 +90,14 @@ public class MultiTaskingSimulator {
 	}
 	
 	/**
-	 * This function extracts the process of the highest priority from the heap.
+	 * This function extracts the process of the highest priority
+	 * from the heap and maintains the heap property after extracting.
 	 * 
 	 * @param ArrayList<Process> A
 	 */
 	public static int heapExtractMax(ArrayList<Process> A) {
 		if (a_HeapSize < 0) {
-			throw new RuntimeException("Heap Underflow.");
+			throw new RuntimeException("Error: Heap Underflow.");
 		}
 		int max = A.get(0).getPriority();
 		A.get(0).setPriority(A.get(a_HeapSize).getPriority());
@@ -105,8 +106,10 @@ public class MultiTaskingSimulator {
 		return max;
 	}
 	
+	
 	/**
-	 * This function returns a process with the highest priority from the heap.
+	 * This function returns a process with the highest priority from the heap,
+	 * but does not remove it from the heap.
 	 * 
 	 * @param ArrayList<Process> A
 	 */
@@ -116,11 +119,45 @@ public class MultiTaskingSimulator {
 	
 	
 	/**
+	 * TODO: INSERT INSERT INSERT
+	 * 
+	 * @param ArrayList<Process> A, int key // what key?
+	 */
+	public static void maxHeapInsert(ArrayList<Process> A, int key) {
+		// TODO
+		a_HeapSize++;
+		A.get(a_HeapSize).setPriority(2147483647); // 2147483647 is the maximum value for integers
+	}
+	
+	
+	/**
+	 * TODO: HEAP INCREASE KEY
+	 * 
+	 * @param ArrayList<Process> A, int key // what key?
+	 */
+	public static void heapIncreaseKey(ArrayList<Process> A, int i, int key) {
+		// TODO
+		if (key < A.get(i).getPriority()) {
+			throw new RuntimeException("Error: New key is smaller than current key.");
+		}
+		A.get(i).setPriority(key);
+		while (i > 1) { // i = 0??? because java?
+			swapArrayElements(i, 0, A); // check pseudocode
+			//i = Parent(i) is that 0?
+		}
+	}
+	
+	
+	/**
 	 * This function prints the menu for the user interface.
 	 */
 	private static void printMenu() {
-		// TODO Auto-generated method stub
-		System.out.println("Hello World");
+		System.out.println("Please select an option: \n");
+		System.out.println("1. Show sorted list of processes and priority index.");
+		System.out.println("2. View and remove the first priority process.");
+		System.out.println("3. Insert a new process with a random priority index.");
+		System.out.println("4. Increase priority of a specified process.");
+		System.out.println("\n\n");
 	}
 	
 	/**
