@@ -8,10 +8,9 @@ public class Process implements Comparable<Process> {
 	 * This constructor initializes the priority of the Process when it is created
 	 * with a random number from 1 to 9999.
 	 */
-	Process(int i) {
-		//priority = (int) (Math.random()*9999 + 1);
-		priority = i;
-		processID = "P" + i;
+	Process(int currentPID) {
+		priority = (int) (Math.random()*9999 + 1);
+		processID = "P" + currentPID;
 	}
 	
 	

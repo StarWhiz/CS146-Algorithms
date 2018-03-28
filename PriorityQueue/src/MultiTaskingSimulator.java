@@ -16,9 +16,9 @@ public class MultiTaskingSimulator {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		for (int i = 0; i < 15 ; i++) {
 			//A.add(new Process(i));
-			A.add(new Process(i)); // add 20 Processes into ArrayList
+			currentPID = i;
+			A.add(new Process(currentPID)); // add 20 Processes into ArrayList
 		}
-		currentPID = 15;
 		buildMaxHeap(A);
 		startMenu(A);
 		
@@ -136,13 +136,14 @@ public class MultiTaskingSimulator {
 	/**
 	 * TODO: INSERT INSERT INSERT
 	 * 
-	 * @param ArrayList<Process> A, int key // what key?
+	 * @param ArrayList<Process> A, Process p (key)
 	 */
 	public static void maxHeapInsert(ArrayList<Process> A, Process p) {
 		// TODO
 		a_HeapSize++;
-		A.add(p);
-		A.get(a_HeapSize).setPriority(Integer.MIN_VALUE);
+		Process newProcess = new Process(Integer.MIN_VALUE);
+		A.add(newProcess);
+		//A.get(a_HeapSize).setPriority(Integer.MIN_VALUE);
 		heapIncreaseKey(A, a_HeapSize, p);
 	}
 	
@@ -150,17 +151,18 @@ public class MultiTaskingSimulator {
 	/**
 	 * TODO: HEAP INCREASE KEY
 	 * 
-	 * @param ArrayList<Process> A, int key // what key?
+	 * @param ArrayList<Process> A, int i (index), Process p (key)
 	 */
 	public static void heapIncreaseKey(ArrayList<Process> A, int i, Process p) {
-		// TODO //heapsize is the first one... LAST NODE... parent of last node is?
+		// TODO //heapsize is the first call... LAST NODE
 		int parentIndex = (i-1)/2;
 		
 		if (p.compareTo(A.get(i)) == -1) {
 			throw new RuntimeException("Error: New key is smaller than current key.");
 		}
 		A.set(i, p);
-		//i/2 = parent(i)???
+		printProcess(A.get(i)); // last process = -2147...
+		printProcess(A.get(parentIndex));
 		while (i > 0 && A.get(parentIndex).compareTo(A.get(i)) == -1) { // i = 0??? because java?
 			Collections.swap(A, 0, parentIndex);
 			i = parentIndex; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
