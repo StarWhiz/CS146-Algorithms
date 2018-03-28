@@ -134,12 +134,12 @@ public class MultiTaskingSimulator {
 	 * 
 	 * @param ArrayList<Process> A, int key // what key?
 	 */
-	public static void maxHeapInsert(ArrayList<Process> A, Process key) {
+	public static void maxHeapInsert(ArrayList<Process> A, Process p) {
 		// TODO
+		A.add(p); //Not sure if I want to do this.
 		a_HeapSize++;
-		A.add(key); //NOT SURE IF I WANT TO DO THIS - Tai
-		A.get(a_HeapSize).setPriority(2147483647); // 2147483647 is the maximum value for integers
-		heapIncreaseKey(A, a_HeapSize, key);
+		A.get(a_HeapSize).setPriority(Integer.MIN_VALUE);
+		heapIncreaseKey(A, a_HeapSize, p);
 	}
 	
 	
@@ -148,17 +148,18 @@ public class MultiTaskingSimulator {
 	 * 
 	 * @param ArrayList<Process> A, int key // what key?
 	 */
-	public static void heapIncreaseKey(ArrayList<Process> A, int i, Process key) {
+	public static void heapIncreaseKey(ArrayList<Process> A, int i, Process p) {
 		// TODO
-		if (key.compareTo(A.get(i)) == -1) {
+		int parentIndex = i/2;
+		
+		if (p.compareTo(A.get(i)) == -1) {
 			throw new RuntimeException("Error: New key is smaller than current key.");
 		}
-		//A.get(i).setPriority(key);
-		//A.get(i).equals(key);
-		
-		while (i > 0 && A.get(0).compareTo(A.get(i)) == -1) { // i = 0??? because java?
-			Collections.swap(A, 0, i);
-			i = 0; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
+		A.set(i, p);
+		//i/2 = parent(i)???
+		while (i > 0 && A.get(parentIndex).compareTo(A.get(i)) == -1) { // i = 0??? because java?
+			Collections.swap(A, 0, parentIndex);
+			i = parentIndex; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
 		}
 	}
 	
@@ -254,9 +255,12 @@ public class MultiTaskingSimulator {
 			    	//TODO user choose INDEX and increases it's priority
 			    	break;
 			    case "4": 
+			    	//TODO: I am stuck here
 			    	Process newProcess = new Process(currentPID++);
-			    	//TODO: max heap insert here
-			    	
+					maxHeapInsert(A, newProcess);					
+					printArrayList(A);
+					System.out.println();
+				
 			    	break;
 			    case "5":
 			    	heapSort(A);
