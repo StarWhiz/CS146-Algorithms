@@ -122,8 +122,8 @@ public class MultiTaskingSimulator {
 	 * 
 	 * @param ArrayList<Process> A
 	 */
-	public static int heapMaximum(ArrayList<Process> A) {
-		return A.get(0).getPriority();
+	public static Process heapMaximum(ArrayList<Process> A) {
+		return A.get(0);
 	}
 	
 	
@@ -164,11 +164,13 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process>
 	 */
 	private static void printArrayList(ArrayList<Process> A) {
-		System.out.println("PID\tPriority");
-		for (int i = 0; i < A.size() ; i++) {
-			System.out.print(A.get(i).getPID());
-			System.out.println("\t" + A.get(i).getPriority());
+		System.out.println("Index\tPID\tPriority");
+		for (int i = 0; i < a_HeapSize ; i++) {
+			System.out.print(i + "\t");
+			System.out.print(A.get(i).getPID() + "\t");
+			System.out.println(A.get(i).getPriority());
 		}
+		System.out.println();
 	}
 	
 	/**
@@ -178,10 +180,10 @@ public class MultiTaskingSimulator {
 	 * @param int i; // index
 	 * @param ArrayList<Process>
 	 */
-	private static void printElementAtIndex(ArrayList<Process> A, int i) {
+	private static void printProcess(Process p) {
 		System.out.println("PID\tPriority");
-		System.out.print(A.get(i).getPID());
-		System.out.println("\t" + A.get(i).getPriority());
+		System.out.print(p.getPID());
+		System.out.println("\t" + p.getPriority());
 	}
 	
 	/**
@@ -213,7 +215,8 @@ public class MultiTaskingSimulator {
 			    case "2": 
 			    	Boolean repeat = true;
 			    	System.out.println("Given the list is not heapsorted. The highest priority process is: ");
-			    	printElementAtIndex(A, 0);
+			    	Process highestPriorityProcess = heapMaximum(A);
+			    	printProcess(highestPriorityProcess);
 			    	System.out.println();
 			    	
 			    	while (repeat) {
@@ -226,6 +229,7 @@ public class MultiTaskingSimulator {
 				    		case "y":
 				    			heapExtractMax(A);
 						    	System.out.println("Highest priority process was removed from PQ.\n");
+						    	printArrayList(A);
 						    	repeat = false;
 						    	break;
 				    		case "N":
@@ -240,7 +244,7 @@ public class MultiTaskingSimulator {
 			    	}
 			    	break;
 			    case "3": 
-
+			    	//TODO user choose INDEX and increases it's priority
 			    	break;
 			    case "4": 
 			    	System.out.println("4 chosen");
@@ -252,7 +256,7 @@ public class MultiTaskingSimulator {
 					break;
 			    case "Q": 
 			    case "q": 
-			    	System.out.println("Thank you and have a nice day!");
+			    	System.out.println("Exiting... Thank you and have a nice day!");
 			    	System.exit(1);
 			    	break;
 			    default:
