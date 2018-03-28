@@ -168,13 +168,19 @@ public class MultiTaskingSimulator {
 		
 		System.out.println("This is A.set(i,p): ");
 		printProcess(A.get(i)); // last process = -2147...
-		System.out.println("This is A[PARENT]: ");
-		printProcess(A.get(parentIndex));
+		System.out.println();
+
 				
 		
-		while (i > 0 && A.get(parentIndex).compareTo(A.get(i)) == -1) { // i = 0??? because java?
-			Collections.swap(A, 0, parentIndex);
-			i = parentIndex; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
+		while (i > 0 && A.get(parentIndex).compareTo(A.get(i)) == -1) {
+			System.out.println("BEFORE THE SWAP....");
+			System.out.println("This is A[PARENT]: ");
+			printProcess(A.get(parentIndex));
+			System.out.println("This is A[Child]: ");
+			printProcess(A.get(i));
+			
+			Collections.swap(A, parentIndex, i);
+			i = parentIndex;
 		}
 	}
 	

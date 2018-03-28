@@ -16,8 +16,8 @@ public class Process implements Comparable<Process> {
 	 * with a random number from 1 to 9999.
 	 */
 	Process(int currentPID) {
-		priority = (int) (Math.random()*9999 + 1);
-		//priority = currentPID;
+		//priority = (int) (Math.random()*9999 + 1);
+		priority = currentPID +1000;
 		processID = "P" + currentPID;
 	}
 	
