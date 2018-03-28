@@ -5,6 +5,7 @@
  *
  */
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class MultiTaskingSimulator {
@@ -66,11 +67,14 @@ public class MultiTaskingSimulator {
 		
 		System.out.println();
 		System.out.println();
-		//System.out.println(A.get(0).compareTo(A.get(14)));
+		
+		////System.out.println(A.get(0).compareTo(A.get(14)));
+		
 		//System.out.println(heapExtractMax(A));
-		//System.out.println();
-		//heapIncreaseKey(A, 5, 99);
-		//printArrayList(A);
+		System.out.println();
+		//heapIncreaseKey(A, 5, 9998);
+		heapSort(A);
+		printArrayList(A);
 	}
 	
 	/**
@@ -97,17 +101,18 @@ public class MultiTaskingSimulator {
 		int l = 2*i;
 		int r = 2*i + 1;
 
-		if (l <= a_HeapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
+		if (l <= a_HeapSize && A.get(l).compareTo(A.get(i)) == 1) {
+			//in compareTo Method a result of 1 means A[l] > A[i]
 			largest = l;
 		}
 		else {
 			largest = i;
 		}
-		if (r <= a_HeapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
+		if (r <= a_HeapSize && A.get(r).compareTo(A.get(largest)) == 1) {
 			largest = r;
 		}
 		if (largest != i) {
-			swapArrayElements(i, largest, A);
+			Collections.swap(A, i, largest);
 			maxHeapify(A,largest);
 		}
 	}
@@ -120,7 +125,7 @@ public class MultiTaskingSimulator {
 	public static void heapSort(ArrayList<Process> A) {
 		buildMaxHeap(A);	
 		for (int i = a_HeapSize; i >= 1 ; i--) {
-			swapArrayElements(0, i, A);
+			Collections.swap(A, 0, i);
 			a_HeapSize--;
 			maxHeapify(A,0);
 		}
@@ -179,7 +184,7 @@ public class MultiTaskingSimulator {
 		}
 		A.get(i).setPriority(key);
 		while (i > 0 && (A.get(0).getPriority() < A.get(i).getPriority())) { // i = 0??? because java?
-			swapArrayElements(i, 0, A);
+			Collections.swap(A, 0, i);
 			i = 0; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
 		}
 	}
@@ -211,19 +216,5 @@ public class MultiTaskingSimulator {
 			System.out.println("\t" + A.get(i).getPriority());
 		}
 	}
-	
-	/**
-	 * This method swaps the priorities of the selected processes from an ArrayList of processes
-	 * 
-	 * @param index i
-	 * @param index j
-	 * @param ArrayList<Process> A
-	 */
-	private static void swapArrayElements(int i, int j, ArrayList<Process> A) {
-		int z = A.get(i).getPriority();
-		A.get(i).setPriority(A.get(j).getPriority());
-		A.get(j).setPriority(z);		
-	}
-	
 }
 
