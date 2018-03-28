@@ -236,14 +236,26 @@ public class MultiTaskingSimulator {
 			    	while(scan.hasNextInt()) {
 			    		processChoice = scan.nextInt();
 				    	if (processChoice > 0 && processChoice < A.size()) {
-				    		System.out.println("This the Choice: " + processChoice);
+				    		System.out.println("Current Process Chosen is: ");
+				    		printProcess(A.get(processChoice));
+				    		System.out.println();
+				    		
+				    		A.get(processChoice).increasePriority();
+				    		
+				    		System.out.println("Process Priority Increased.");
+				    		printProcess(A.get(processChoice));
+				    		System.out.println();
+				    		
+				    		buildMaxHeap(A);
+				    		printArrayList(A);
+				    		break;
+				    		
 				    	}
 				    	else {
 				    		System.out.println("Invalid choice. Choice out of range.");
 				    		System.out.println("Enter in index of process priority you want to increase: ");
 				    	}
 			    	}
-	
 			    	break;
 			    case "4": 
 			    	currentPID++;
