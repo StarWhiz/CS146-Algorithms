@@ -5,6 +5,7 @@
  *
  */
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MultiTaskingSimulator {
 	static int a_HeapSize;
@@ -12,14 +13,45 @@ public class MultiTaskingSimulator {
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		int currentPID;
-
 		for (int i = 0; i < 15 ; i++) {
 			//A.add(new Process(i));
 			currentPID = i;
 			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
     
-		printMenu();
+		//Menu Operations Start Here...
+		String choice = null;
+		while (choice != "q" || choice != "Q") {
+			printMenu();
+			System.out.print("Please type in an option and press enter: ");
+		    Scanner scan = new Scanner(System.in);
+		    choice = scan.nextLine();
+		    switch(choice) {
+			    case "1": 
+			    	System.out.println("Here is the sorted list of proccesses and their index");
+					printArrayList(A);
+					System.out.println();
+					
+			    	break;
+			    case "2": 
+			    	System.out.println("2 chosen");
+			    	break;
+			    case "3": 
+			    	System.out.println("3 chosen");
+			    	break;
+			    case "4": 
+			    	System.out.println("4 chosen");
+			    	break;
+			    case "Q": 
+			    case "q": 
+			    	System.out.println("Thank you and have a nice day!");
+			    	System.exit(1);
+			    	break;
+			    default:
+			    	System.out.println("Invalid Choice. Please try again.\n");
+		    }
+		}
+		
 		printArrayList(A);
 		buildMaxHeap(A);
 		//heapSort(A); // Wow we don't even need to do heapSort to do a priority queue!
@@ -153,14 +185,15 @@ public class MultiTaskingSimulator {
 	 * This function prints the menu for the user interface.
 	 */
 	private static void printMenu() {
-		System.out.println("Please select an option: \n");
+		System.out.println("Availiable Options:\n");
 		System.out.println("1. Show sorted list of processes and priority index.");
 		System.out.println("2. View and remove the first priority process.");
 		System.out.println("3. Insert a new process with a random priority index.");
 		System.out.println("4. Increase priority of a specified process.");
-		System.out.println("\n\n");
+		System.out.println("Q. Quit.\n");
 	}
 	
+
 	/**
 	 * This function prints the priorities of all elements of the
 	 * ArrayList <Process> that was passed to it.
