@@ -23,6 +23,13 @@ public class MultiTaskingSimulator {
 		startMenu(A);
 		
 		/* Test Bench
+
+		printArrayList(A);
+		heapSort(A);
+
+		printArrayList(A);
+		
+		
 		printArrayList(A);
 
 		buildMaxHeap(A);
@@ -40,8 +47,7 @@ public class MultiTaskingSimulator {
 		//System.out.println(heapExtractMax(A));
 		System.out.println();
 		//heapIncreaseKey(A, 5, 9998);
-		heapSort(A);
-		printArrayList(A);
+
 		*/
 	}
 	
@@ -51,8 +57,8 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process> A
 	 */
 	private static void buildMaxHeap(ArrayList<Process> A) {
-		a_HeapSize = A.size()-1; //(element of last index is ArraySize minus 1)
-		for (int i = (A.size()-1)/2; i >= 0; i--) {
+		a_HeapSize = A.size() - 1; //(element of last index is ArraySize minus 1)
+		for (int i = (A.size() - 1)/2; i >= 0; i--) {
 			maxHeapify(A, i);
 		}
 	}
@@ -66,10 +72,8 @@ public class MultiTaskingSimulator {
 	 */
 	private static void maxHeapify (ArrayList<Process> A, int i) {
 		int largest;
-
-		int l = 2*i;
-		int r = 2*i + 1;
-
+		int l = 2*i + 1;
+		int r = 2*i + 2;
 		if (l <= a_HeapSize && A.get(l).compareTo(A.get(i)) == 1) {
 			//in compareTo Method a result of 1 means A[l] > A[i]
 			largest = l;
@@ -92,10 +96,10 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process> A
 	 */
 	public static void heapSort(ArrayList<Process> A) {
-		buildMaxHeap(A);	
-		for (int i = a_HeapSize; i >= 1 ; i--) {
+		buildMaxHeap(A);
+		for (int i = (A.size()-1); i >= 1 ; i--) {
 			Collections.swap(A, 0, i);
-			a_HeapSize--;
+			a_HeapSize = a_HeapSize - 1;
 			maxHeapify(A,0);
 		}
 	}
@@ -136,8 +140,8 @@ public class MultiTaskingSimulator {
 	 */
 	public static void maxHeapInsert(ArrayList<Process> A, Process p) {
 		// TODO
-		A.add(p); //Not sure if I want to do this.
 		a_HeapSize++;
+		A.add(p);
 		A.get(a_HeapSize).setPriority(Integer.MIN_VALUE);
 		heapIncreaseKey(A, a_HeapSize, p);
 	}
@@ -149,8 +153,8 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process> A, int key // what key?
 	 */
 	public static void heapIncreaseKey(ArrayList<Process> A, int i, Process p) {
-		// TODO
-		int parentIndex = i/2;
+		// TODO //heapsize is the first one... LAST NODE... parent of last node is?
+		int parentIndex = (i-1)/2;
 		
 		if (p.compareTo(A.get(i)) == -1) {
 			throw new RuntimeException("Error: New key is smaller than current key.");
@@ -171,9 +175,8 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process>
 	 */
 	private static void printArrayList(ArrayList<Process> A) {
-		int elements = a_HeapSize + 1;
 		System.out.println("Index\tPID\tPriority");
-		for (int i = 0; i < elements ; i++) {
+		for (int i = 0; i < A.size(); i++) {
 			System.out.print(i + "\t");
 			System.out.print(A.get(i).getPID() + "\t");
 			System.out.println(A.get(i).getPriority());
@@ -260,7 +263,6 @@ public class MultiTaskingSimulator {
 					maxHeapInsert(A, newProcess);					
 					printArrayList(A);
 					System.out.println();
-				
 			    	break;
 			    case "5":
 			    	heapSort(A);
