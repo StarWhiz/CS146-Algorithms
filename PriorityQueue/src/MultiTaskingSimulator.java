@@ -13,49 +13,14 @@ public class MultiTaskingSimulator {
 	
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
-		int currentPID;
 		for (int i = 0; i < 15 ; i++) {
 			//A.add(new Process(i));
-			currentPID = i;
 			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
-    
-		/*
-		//Menu Operations Start Here...
-		String choice = null;
-		while (choice != "q" || choice != "Q") {
-			printMenu();
-			System.out.print("Please type in an option and press enter: ");
-		    Scanner scan = new Scanner(System.in);
-		    choice = scan.nextLine();
-		    switch(choice) {
-			    case "1": 
-			    	heapSort(A);
-			    	System.out.println("Here is the sorted list of processes and their index\n");
-					printArrayList(A);
-					System.out.println();
-					
-			    	break;
-			    case "2": 
-			    	System.out.println("2 chosen");
-			    	break;
-			    case "3": 
-			    	System.out.println("3 chosen");
-			    	break;
-			    case "4": 
-			    	System.out.println("4 chosen");
-			    	break;
-			    case "Q": 
-			    case "q": 
-			    	System.out.println("Thank you and have a nice day!");
-			    	System.exit(1);
-			    	break;
-			    default:
-			    	System.out.println("Invalid Choice. Please try again.\n");
-		    }
-		}
-		*/ // End of Menu Operations
+		buildMaxHeap(A);
+		startMenu(A);
 		
+		/* Test Bench
 		printArrayList(A);
 
 		buildMaxHeap(A);
@@ -75,8 +40,10 @@ public class MultiTaskingSimulator {
 		//heapIncreaseKey(A, 5, 9998);
 		heapSort(A);
 		printArrayList(A);
+		*/
 	}
 	
+
 	/**
 	 * This function takes an ArrayList of Processes and makes their priorities adhere to the max heap property.
 	 * @param ArrayList<Process> A
@@ -189,22 +156,9 @@ public class MultiTaskingSimulator {
 		}
 	}
 	
-	
-	/**
-	 * This function prints the menu for the user interface.
-	 */
-	private static void printMenu() {
-		System.out.println("Availiable Options:\n");
-		System.out.println("1. Show sorted list of processes and priority index.");
-		System.out.println("2. View and remove the first priority process.");
-		System.out.println("3. Insert a new process with a random priority index.");
-		System.out.println("4. Increase priority of a specified process.");
-		System.out.println("Q. Quit.\n");
-	}
-	
 
 	/**
-	 * This function prints the priorities of all elements of the
+	 * This function prints the PIDs & Priorities of all elements of the
 	 * ArrayList <Process> that was passed to it.
 	 * 
 	 * @param ArrayList<Process>
@@ -215,6 +169,96 @@ public class MultiTaskingSimulator {
 			System.out.print(A.get(i).getPID());
 			System.out.println("\t" + A.get(i).getPriority());
 		}
+	}
+	
+	/**
+	 * This function prints the PID & Priority of an element by taking an
+	 * index and ArrayList <Process> that was passed to it.
+	 * 
+	 * @param int i; // index
+	 * @param ArrayList<Process>
+	 */
+	private static void printElementAtIndex(ArrayList<Process> A, int i) {
+		System.out.println("PID\tPriority");
+		System.out.print(A.get(i).getPID());
+		System.out.println("\t" + A.get(i).getPriority());
+	}
+	
+	/**
+	 * This function displays a menu with operations that can be done to an 
+	 * ArrayList of Processes.
+	 * @param ArrayList<Process> A
+	 */
+	private static void startMenu(ArrayList<Process> A) {
+		String choice = null;
+		while (choice != "q" || choice != "Q") {
+			System.out.println("************ Menu Of Availiable Options ************");
+			System.out.println("1. Show current ArrayList of Processes. (Priority Queue)");
+			System.out.println("2. View and remove the first priority process.");
+			System.out.println("3. Increase priority of a specified process.");
+			System.out.println("4. Insert a new process with a random priority index.");
+			System.out.println("5. Sort Processes by priority and displays list of Processes\n" +
+							   "   (Warning: PriorityQueue will not function properly anymore b/c of heapSort)");
+			System.out.println("Q. Quit.\n");
+			
+			System.out.print("Please type in an option and press enter: ");
+		    Scanner scan = new Scanner(System.in);
+		    choice = scan.nextLine();
+		    System.out.println();
+		    switch(choice) {
+			    case "1": 
+			    	printArrayList(A);
+					System.out.println();
+			    	break;
+			    case "2": 
+			    	Boolean repeat = true;
+			    	System.out.println("Given the list is not heapsorted. The highest priority process is: ");
+			    	printElementAtIndex(A, 0);
+			    	System.out.println();
+			    	
+			    	while (repeat) {
+				    	System.out.println("Do you want to remove this process? Type Y/N and press Enter: ");
+				    	String ynChoice;
+
+				    	ynChoice = scan.nextLine();
+				    	switch(ynChoice) {
+				    		case "Y":
+				    		case "y":
+				    			heapExtractMax(A);
+						    	System.out.println("Highest priority process was removed from PQ.\n");
+						    	repeat = false;
+						    	break;
+				    		case "N":
+				    		case "n":
+						    	System.out.println("Process removal canceled...\n");	   
+						    	repeat = false;
+						    	break;
+						    default: 
+						    	System.out.println("Invalid input. Please try again.");
+					    		repeat = true;	
+				    	}		
+			    	}
+			    	break;
+			    case "3": 
+
+			    	break;
+			    case "4": 
+			    	System.out.println("4 chosen");
+			    	break;
+			    case "5":
+			    	heapSort(A);
+					printArrayList(A);
+					System.out.println();
+					break;
+			    case "Q": 
+			    case "q": 
+			    	System.out.println("Thank you and have a nice day!");
+			    	System.exit(1);
+			    	break;
+			    default:
+			    	System.out.println("Invalid Choice. Please try again.\n");
+		    }
+		}	
 	}
 }
 
