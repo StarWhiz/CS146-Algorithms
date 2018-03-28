@@ -141,9 +141,11 @@ public class MultiTaskingSimulator {
 	public static void maxHeapInsert(ArrayList<Process> A, Process p) {
 		// TODO
 		a_HeapSize++;
-		Process newProcess = new Process(Integer.MIN_VALUE);
+		Process newProcess = new Process();
 		A.add(newProcess);
-		//A.get(a_HeapSize).setPriority(Integer.MIN_VALUE);
+		System.out.println("This is the new infinity Process: ");
+		printProcess(A.get(a_HeapSize));
+		
 		heapIncreaseKey(A, a_HeapSize, p);
 	}
 	
@@ -161,8 +163,15 @@ public class MultiTaskingSimulator {
 			throw new RuntimeException("Error: New key is smaller than current key.");
 		}
 		A.set(i, p);
+		
+		
+		
+		System.out.println("This is A.set(i,p): ");
 		printProcess(A.get(i)); // last process = -2147...
+		System.out.println("This is A[PARENT]: ");
 		printProcess(A.get(parentIndex));
+				
+		
 		while (i > 0 && A.get(parentIndex).compareTo(A.get(i)) == -1) { // i = 0??? because java?
 			Collections.swap(A, 0, parentIndex);
 			i = parentIndex; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
@@ -261,7 +270,12 @@ public class MultiTaskingSimulator {
 			    	break;
 			    case "4": 
 			    	//TODO: I am stuck here
-			    	Process newProcess = new Process(currentPID++);
+			    	currentPID++;
+			    	Process newProcess = new Process(currentPID);
+					System.out.println("This new process will be inserted: ");
+					printProcess(newProcess);
+					System.out.println();
+					
 					maxHeapInsert(A, newProcess);					
 					printArrayList(A);
 					System.out.println();
