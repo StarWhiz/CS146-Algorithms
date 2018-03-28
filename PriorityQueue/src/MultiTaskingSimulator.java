@@ -164,8 +164,9 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process>
 	 */
 	private static void printArrayList(ArrayList<Process> A) {
+		int elements = a_HeapSize + 1;
 		System.out.println("Index\tPID\tPriority");
-		for (int i = 0; i < a_HeapSize ; i++) {
+		for (int i = 0; i < elements ; i++) {
 			System.out.print(i + "\t");
 			System.out.print(A.get(i).getPID() + "\t");
 			System.out.println(A.get(i).getPriority());
