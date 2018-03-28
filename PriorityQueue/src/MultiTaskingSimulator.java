@@ -66,11 +66,13 @@ public class MultiTaskingSimulator {
 		
 		System.out.println();
 		System.out.println();
-		//System.out.println(A.get(0).compareTo(A.get(14)));
-		//System.out.println(heapExtractMax(A));
-		//System.out.println();
-		//heapIncreaseKey(A, 5, 99);
-		//printArrayList(A);
+		
+		////System.out.println(A.get(0).compareTo(A.get(14)));
+		
+		System.out.println(heapExtractMax(A));
+		System.out.println();
+		heapIncreaseKey(A, 5, 99);
+		printArrayList(A);
 	}
 	
 	/**
@@ -97,13 +99,14 @@ public class MultiTaskingSimulator {
 		int l = 2*i;
 		int r = 2*i + 1;
 
-		if (l <= a_HeapSize && A.get(l).getPriority() > A.get(i).getPriority()) {
+		if (l <= a_HeapSize && A.get(l).compareTo(A.get(i)) == 1) {
+			//in compareTo Method a result of 1 means A[l] > A[i]
 			largest = l;
 		}
 		else {
 			largest = i;
 		}
-		if (r <= a_HeapSize && A.get(r).getPriority() > A.get(largest).getPriority()) {
+		if (r <= a_HeapSize && A.get(r).compareTo(A.get(largest)) == 1) {
 			largest = r;
 		}
 		if (largest != i) {
