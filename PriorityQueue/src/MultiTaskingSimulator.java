@@ -28,7 +28,8 @@ public class MultiTaskingSimulator {
 		    choice = scan.nextLine();
 		    switch(choice) {
 			    case "1": 
-			    	System.out.println("Here is the sorted list of proccesses and their index");
+			    	heapSort(A);
+			    	System.out.println("Here is the sorted list of processes and their index\n");
 					printArrayList(A);
 					System.out.println();
 					
@@ -201,11 +202,10 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process>
 	 */
 	private static void printArrayList(ArrayList<Process> A) {
+		System.out.println("PID\tPriority");
 		for (int i = 0; i < A.size() ; i++) {
-			System.out.print(A.get(i).getPriority() + " ");
-			if (i == A.size()/2) {
-				System.out.println();
-			}
+			System.out.print(A.get(i).getPID());
+			System.out.println("\t" + A.get(i).getPriority());
 		}
 	}
 	
