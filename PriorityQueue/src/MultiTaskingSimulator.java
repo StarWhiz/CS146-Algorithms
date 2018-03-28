@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class MultiTaskingSimulator {
 	static int a_HeapSize;
+	static int currentPID;
 	
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
@@ -17,6 +18,7 @@ public class MultiTaskingSimulator {
 			//A.add(new Process(i));
 			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
+		currentPID = 15;
 		buildMaxHeap(A);
 		startMenu(A);
 		
@@ -132,10 +134,12 @@ public class MultiTaskingSimulator {
 	 * 
 	 * @param ArrayList<Process> A, int key // what key?
 	 */
-	public static void maxHeapInsert(ArrayList<Process> A, int key) {
+	public static void maxHeapInsert(ArrayList<Process> A, Process key) {
 		// TODO
 		a_HeapSize++;
+		A.add(key); //NOT SURE IF I WANT TO DO THIS - Tai
 		A.get(a_HeapSize).setPriority(2147483647); // 2147483647 is the maximum value for integers
+		heapIncreaseKey(A, a_HeapSize, key);
 	}
 	
 	
@@ -144,13 +148,15 @@ public class MultiTaskingSimulator {
 	 * 
 	 * @param ArrayList<Process> A, int key // what key?
 	 */
-	public static void heapIncreaseKey(ArrayList<Process> A, int i, int key) {
+	public static void heapIncreaseKey(ArrayList<Process> A, int i, Process key) {
 		// TODO
-		if (key < A.get(i).getPriority()) {
+		if (key.compareTo(A.get(i)) == -1) {
 			throw new RuntimeException("Error: New key is smaller than current key.");
 		}
-		A.get(i).setPriority(key);
-		while (i > 0 && (A.get(0).getPriority() < A.get(i).getPriority())) { // i = 0??? because java?
+		//A.get(i).setPriority(key);
+		//A.get(i).equals(key);
+		
+		while (i > 0 && A.get(0).compareTo(A.get(i)) == -1) { // i = 0??? because java?
 			Collections.swap(A, 0, i);
 			i = 0; //what is parent(i)? the index of parent? wouldn't that be 0? Trying 0 here.
 		}
@@ -248,7 +254,9 @@ public class MultiTaskingSimulator {
 			    	//TODO user choose INDEX and increases it's priority
 			    	break;
 			    case "4": 
-			    	System.out.println("4 chosen");
+			    	Process newProcess = new Process(currentPID++);
+			    	//TODO: max heap insert here
+			    	
 			    	break;
 			    case "5":
 			    	heapSort(A);
