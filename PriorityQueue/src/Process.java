@@ -4,20 +4,12 @@ public class Process implements Comparable<Process> {
 	private String processID;
 	
 	/**
-	 * Negative infinity case for LEAF node of HEAP
-	 */
-	Process() {
-		priority = Integer.MIN_VALUE;
-		processID = null;
-	}
-	
-	/**
 	 * This constructor initializes the priority of the Process when it is created
 	 * with a random number from 1 to 9999.
 	 */
 	Process(int currentPID) {
-		//priority = (int) (Math.random()*9999 + 1);
-		priority = currentPID +1000;
+		//priority = currentPID +1000; // FOR DEBUGGING
+		priority = (int) (Math.random()*9999 + 1);
 		processID = "P" + currentPID;
 	}
 	

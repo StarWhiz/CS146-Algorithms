@@ -134,53 +134,38 @@ public class MultiTaskingSimulator {
 	
 	
 	/**
-	 * TODO: INSERT INSERT INSERT
+	 * This function is used to add a new Process into the Heap.
+	 * It initially creates a leaf node with the lowest priority possible
+	 * and calls heapIncreaseKey.
 	 * 
 	 * @param ArrayList<Process> A, Process p (key)
 	 */
 	public static void maxHeapInsert(ArrayList<Process> A, Process p) {
-		// TODO
 		a_HeapSize++;
-		Process newProcess = new Process();
+		Process newProcess = new Process(currentPID);
+		newProcess.setPriority(Integer.MIN_VALUE);
 		A.add(newProcess);
-		System.out.println("This is the new infinity Process: ");
-		printProcess(A.get(a_HeapSize));
-		
 		heapIncreaseKey(A, a_HeapSize, p);
 	}
 	
 	
 	/**
-	 * TODO: HEAP INCREASE KEY
+	 * This function first assigns the new leaf node created bymaxHeapInsert to the key. 
 	 * 
+	 * Then it constantly compares the child node with it's parent node. if the parent node is
+	 * smaller the child node. The child node bubbles up until this condition is no longer true.
 	 * @param ArrayList<Process> A, int i (index), Process p (key)
 	 */
 	public static void heapIncreaseKey(ArrayList<Process> A, int i, Process p) {
-		// TODO //heapsize is the first call... LAST NODE
-		int parentIndex = (i-1)/2;
-		
 		if (p.compareTo(A.get(i)) == -1) {
 			throw new RuntimeException("Error: New key is smaller than current key.");
 		}
+		
 		A.set(i, p);
 		
-		
-		
-		System.out.println("This is A.set(i,p): ");
-		printProcess(A.get(i)); // last process = -2147...
-		System.out.println();
-
-				
-		
-		while (i > 0 && A.get(parentIndex).compareTo(A.get(i)) == -1) {
-			System.out.println("BEFORE THE SWAP....");
-			System.out.println("This is A[PARENT]: ");
-			printProcess(A.get(parentIndex));
-			System.out.println("This is A[Child]: ");
-			printProcess(A.get(i));
-			
-			Collections.swap(A, parentIndex, i);
-			i = parentIndex;
+		while (i > 0 && A.get((i-1)/2).compareTo(A.get(i)) == -1) {	
+			Collections.swap(A, (i-1)/2, i);
+			i = (i-1)/2; //(i-1)/2 is the parent of child i
 		}
 	}
 	
@@ -275,9 +260,9 @@ public class MultiTaskingSimulator {
 			    	//TODO user choose INDEX and increases it's priority
 			    	break;
 			    case "4": 
-			    	//TODO: I am stuck here
 			    	currentPID++;
 			    	Process newProcess = new Process(currentPID);
+			    	
 					System.out.println("This new process will be inserted: ");
 					printProcess(newProcess);
 					System.out.println();
