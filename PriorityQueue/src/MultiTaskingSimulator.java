@@ -19,6 +19,7 @@ public class MultiTaskingSimulator {
 			A.add(new Process(i)); // add 20 Processes into ArrayList
 		}
     
+		/*
 		//Menu Operations Start Here...
 		String choice = null;
 		while (choice != "q" || choice != "Q") {
@@ -52,8 +53,10 @@ public class MultiTaskingSimulator {
 			    	System.out.println("Invalid Choice. Please try again.\n");
 		    }
 		}
+		*/ // End of Menu Operations
 		
 		printArrayList(A);
+
 		buildMaxHeap(A);
 		//heapSort(A); // Wow we don't even need to do heapSort to do a priority queue!
 		
@@ -63,11 +66,11 @@ public class MultiTaskingSimulator {
 		
 		System.out.println();
 		System.out.println();
-		System.out.println(heapExtractMax(A));
-		System.out.println();
-		heapIncreaseKey(A, 5, 99);
-		
-		printArrayList(A);
+		//System.out.println(A.get(0).compareTo(A.get(14)));
+		//System.out.println(heapExtractMax(A));
+		//System.out.println();
+		//heapIncreaseKey(A, 5, 99);
+		//printArrayList(A);
 	}
 	
 	/**
