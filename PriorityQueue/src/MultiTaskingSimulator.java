@@ -21,34 +21,6 @@ public class MultiTaskingSimulator {
 		}
 		buildMaxHeap(A);
 		startMenu(A);
-		
-		/* Test Bench
-
-		printArrayList(A);
-		heapSort(A);
-
-		printArrayList(A);
-		
-		
-		printArrayList(A);
-
-		buildMaxHeap(A);
-		//heapSort(A); // Wow we don't even need to do heapSort to do a priority queue!
-		
-		System.out.println();
-		System.out.println();
-		printArrayList(A);
-		
-		System.out.println();
-		System.out.println();
-		
-		////System.out.println(A.get(0).compareTo(A.get(14)));
-		
-		//System.out.println(heapExtractMax(A));
-		System.out.println();
-		//heapIncreaseKey(A, 5, 9998);
-
-		*/
 	}
 	
 
@@ -258,6 +230,20 @@ public class MultiTaskingSimulator {
 			    	break;
 			    case "3": 
 			    	//TODO user choose INDEX and increases it's priority
+			    	printArrayList(A);
+					System.out.println("Enter in index of process priority you want to increase: ");
+			    	int processChoice;
+			    	while(scan.hasNextInt()) {
+			    		processChoice = scan.nextInt();
+				    	if (processChoice > 0 && processChoice < A.size()) {
+				    		System.out.println("This the Choice: " + processChoice);
+				    	}
+				    	else {
+				    		System.out.println("Invalid choice. Choice out of range.");
+				    		System.out.println("Enter in index of process priority you want to increase: ");
+				    	}
+			    	}
+	
 			    	break;
 			    case "4": 
 			    	currentPID++;
