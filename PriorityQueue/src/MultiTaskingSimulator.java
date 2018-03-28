@@ -5,6 +5,7 @@
  *
  */
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class MultiTaskingSimulator {
@@ -69,9 +70,10 @@ public class MultiTaskingSimulator {
 		
 		////System.out.println(A.get(0).compareTo(A.get(14)));
 		
-		System.out.println(heapExtractMax(A));
+		//System.out.println(heapExtractMax(A));
 		System.out.println();
-		heapIncreaseKey(A, 5, 99);
+		//heapIncreaseKey(A, 5, 9998);
+		heapSort(A);
 		printArrayList(A);
 	}
 	
@@ -223,9 +225,7 @@ public class MultiTaskingSimulator {
 	 * @param ArrayList<Process> A
 	 */
 	private static void swapArrayElements(int i, int j, ArrayList<Process> A) {
-		int z = A.get(i).getPriority();
-		A.get(i).setPriority(A.get(j).getPriority());
-		A.get(j).setPriority(z);		
+		Collections.swap(A, i, j);
 	}
 	
 }
