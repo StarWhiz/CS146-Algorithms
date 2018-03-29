@@ -87,7 +87,7 @@ public class MultiTaskingSimulator {
 			throw new RuntimeException("Error: Heap Underflow.");
 		}
 		Process max = A.get(0);
-		A.set(1, A.get(a_HeapSize));
+		A.set(0, A.get(a_HeapSize));
 		a_HeapSize--;
 		maxHeapify(A,0);
 		return max;
@@ -150,7 +150,9 @@ public class MultiTaskingSimulator {
 	 */
 	private static void printArrayList(ArrayList<Process> A) {
 		System.out.println("Index\tPID\tPriority");
-		for (int i = 0; i < A.size(); i++) {
+		
+		//TODO: for (int i = 0; i < A.size(); i++) {
+		for (int i = 0; i < a_HeapSize + 1; i++) {
 			System.out.print(i + "\t");
 			System.out.print(A.get(i).getPID() + "\t");
 			System.out.println(A.get(i).getPriority());
