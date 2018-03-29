@@ -74,6 +74,7 @@ public class MultiTaskingSimulator {
 			a_HeapSize = a_HeapSize - 1;
 			maxHeapify(A,0);
 		}
+		a_HeapSize = A.size() - 1; // I added this in so printArrayList would function properly
 	}
 	
 	/**
