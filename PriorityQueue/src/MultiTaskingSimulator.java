@@ -1,6 +1,7 @@
 /**
+ * Priority Queue Simulation
  * 
- *  Due Friday Next Week 11:59 PM. March 30.
+ * Due Friday Next Week 11:59 PM. March 30.
  * @author Tai Dao
  *
  */
@@ -15,9 +16,9 @@ public class MultiTaskingSimulator {
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		for (int i = 0; i < 20 ; i++) {
-			//A.add(new Process(i));
 			currentPID = i;
 			A.add(new Process(currentPID)); // add 20 Processes into ArrayList
+			//This ArrayList represents the heap.
 		}
 		buildMaxHeap(A);
 		startMenu(A);
@@ -25,7 +26,10 @@ public class MultiTaskingSimulator {
 	
 
 	/**
-	 * This function takes an ArrayList of Processes and makes their priorities adhere to the max heap property.
+	 * This function takes an ArrayList of Processes and makes them adhere to the 
+	 * maxHeap property where the parent processes have a higher priority than the
+	 * children processes.
+	 * 
 	 * @param ArrayList<Process> A
 	 */
 	private static void buildMaxHeap(ArrayList<Process> A) {
@@ -35,12 +39,11 @@ public class MultiTaskingSimulator {
 		}
 	}
 	
-	
 	/**
 	 * This function is used by buildMaxHeap to recursively swap children nodes with 
-	 * parent nodes if the child node is greater than the parent node.
-	 * @param ArrayList<Process> A
-	 * @param i
+	 * parent nodes if the child node has greater priority than the parent node.
+	 * 
+	 * @param ArrayList<Process> A, int i
 	 */
 	private static void maxHeapify (ArrayList<Process> A, int i) {
 		int largest;
@@ -63,7 +66,7 @@ public class MultiTaskingSimulator {
 	}
 	
 	/**
-	 * This function performs a heapsort of the ArrayList of Processes by priority
+	 * This function performs a heapSort of the ArrayList of Processes by priority
 	 * 
 	 * @param ArrayList<Process> A
 	 */
@@ -79,7 +82,7 @@ public class MultiTaskingSimulator {
 	
 	/**
 	 * This function extracts the process of the highest priority
-	 * from the heap and maintains the heap property after extracting.
+	 * from the heap and re-maintains the heap property after extracting.
 	 * 
 	 * @param ArrayList<Process> A
 	 */
@@ -107,9 +110,8 @@ public class MultiTaskingSimulator {
 	
 	
 	/**
-	 * This function is used to add a new Process into the Heap.
-	 * It initially creates a leaf node with the lowest priority possible
-	 * and calls heapIncreaseKey.
+	 * This function is used to add a new Process into the Heap. It initially creates a leaf 
+	 * node with the lowest priority possible then calls heapIncreaseKey.
 	 * 
 	 * @param ArrayList<Process> A, Process p (key)
 	 */
@@ -123,10 +125,10 @@ public class MultiTaskingSimulator {
 	
 	
 	/**
-	 * This function first assigns the new leaf node created bymaxHeapInsert to the key. 
-	 * 
+	 * This function first assigns the new leaf node created by maxHeapInsert to the key. 
 	 * Then it constantly compares the child node with it's parent node. if the parent node is
 	 * smaller the child node. The child node bubbles up until this condition is no longer true.
+	 * 
 	 * @param ArrayList<Process> A, int i (index), Process p (key)
 	 */
 	public static void heapIncreaseKey(ArrayList<Process> A, int i, Process p) {
@@ -145,14 +147,14 @@ public class MultiTaskingSimulator {
 
 	/**
 	 * This function prints the PIDs & Priorities of all elements of the
-	 * ArrayList <Process> that was passed to it.
+	 * ArrayList <Process> that was passed to it. It only prints up to the 
+	 * heapSize of the heap.
 	 * 
 	 * @param ArrayList<Process>
 	 */
 	public static void printArrayList(ArrayList<Process> A) {
 		System.out.println("Index\tPID\tPriority");
 		
-		//TODO: for (int i = 0; i < A.size(); i++) {
 		for (int i = 0; i < a_HeapSize + 1; i++) {
 			System.out.print(i + "\t");
 			System.out.print(A.get(i).getPID() + "\t");
@@ -160,6 +162,7 @@ public class MultiTaskingSimulator {
 		}
 		System.out.println();
 	}
+	
 	
 	/**
 	 * This function prints the PID & Priority of an element by taking an
@@ -174,6 +177,7 @@ public class MultiTaskingSimulator {
 		System.out.println("\t" + p.getPriority());
 	}
 	
+	
 	/**
 	 * This function displays a menu with operations that can be done to an 
 	 * ArrayList of Processes.
@@ -183,11 +187,11 @@ public class MultiTaskingSimulator {
 		String choice = null;
 		while (choice != "q" || choice != "Q") {
 			System.out.println("************ Menu Of Availiable Options ************");
-			System.out.println("1. Show current ArrayList of Processes.");
-			System.out.println("2. View and remove the highest priority process.");
-			System.out.println("3. Increase priority of a specified process.");
-			System.out.println("4. Insert a new process with a random priority index.");
-			System.out.println("5. Sort Processes by priority and displays list of Processes");
+			System.out.println("1. Show current ArrayList of Processes. (PriorityQueue)");
+			System.out.println("2. View and remove the highest priority process from the PriorityQueue.");
+			System.out.println("3. Increase priority of a specified process which changes it's position in the PriorityQueue.");
+			System.out.println("4. Insert a new process with a random priority index into the PriorityQueue.");
+			System.out.println("5. Sort Processes by priority and displays list of Processes (HeapSort)");
 			System.out.println("Q. Quit.\n");
 			
 			System.out.print("Please type in an option and press enter: ");
@@ -231,7 +235,6 @@ public class MultiTaskingSimulator {
 			    	}
 			    	break;
 			    case "3": 
-			    	//TODO user choose INDEX and increases it's priority
 			    	printArrayList(A);
 					System.out.println("Enter in index of process priority you want to increase: ");
 			    	int processChoice;
@@ -243,12 +246,12 @@ public class MultiTaskingSimulator {
 				    		System.out.println();
 				    		
 				    		A.get(processChoice).increasePriority();
+				    		heapIncreaseKey(A, processChoice, A.get(processChoice));
 				    		
 				    		System.out.println("Process Priority Increased.");
 				    		printProcess(A.get(processChoice));
 				    		System.out.println();
 				    		
-				    		buildMaxHeap(A);
 				    		printArrayList(A);
 				    		break;
 				    		
