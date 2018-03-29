@@ -14,7 +14,7 @@ public class MultiTaskingSimulator {
 	
 	public static void main(String[] args) {
 		ArrayList <Process> A = new ArrayList<Process> ();
-		for (int i = 0; i < 15 ; i++) {
+		for (int i = 0; i < 20 ; i++) {
 			//A.add(new Process(i));
 			currentPID = i;
 			A.add(new Process(currentPID)); // add 20 Processes into ArrayList
@@ -82,12 +82,12 @@ public class MultiTaskingSimulator {
 	 * 
 	 * @param ArrayList<Process> A
 	 */
-	public static int heapExtractMax(ArrayList<Process> A) {
+	public static Process heapExtractMax(ArrayList<Process> A) {
 		if (a_HeapSize < 0) {
 			throw new RuntimeException("Error: Heap Underflow.");
 		}
-		int max = A.get(0).getPriority();
-		A.get(0).setPriority(A.get(a_HeapSize).getPriority());
+		Process max = A.get(0);
+		A.set(1, A.get(a_HeapSize));
 		a_HeapSize--;
 		maxHeapify(A,0);
 		return max;
@@ -180,12 +180,11 @@ public class MultiTaskingSimulator {
 		String choice = null;
 		while (choice != "q" || choice != "Q") {
 			System.out.println("************ Menu Of Availiable Options ************");
-			System.out.println("1. Show current ArrayList of Processes. (Priority Queue)");
+			System.out.println("1. Show current ArrayList of Processes.");
 			System.out.println("2. View and remove the first priority process.");
 			System.out.println("3. Increase priority of a specified process.");
 			System.out.println("4. Insert a new process with a random priority index.");
-			System.out.println("5. Sort Processes by priority and displays list of Processes\n" +
-							   "   (Warning: PriorityQueue will not function properly anymore b/c of heapSort)");
+			System.out.println("5. Sort Processes by priority and displays list of Processes\n");
 			System.out.println("Q. Quit.\n");
 			
 			System.out.print("Please type in an option and press enter: ");
@@ -270,8 +269,9 @@ public class MultiTaskingSimulator {
 					System.out.println();
 			    	break;
 			    case "5":
-			    	heapSort(A);
-					printArrayList(A);
+			    	ArrayList <Process> newA = new ArrayList <Process> (A);
+			    	heapSort(newA);
+					printArrayList(newA);
 					System.out.println();
 					break;
 			    case "Q": 
