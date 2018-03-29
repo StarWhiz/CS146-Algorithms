@@ -149,7 +149,7 @@ public class MultiTaskingSimulator {
 	 * 
 	 * @param ArrayList<Process>
 	 */
-	private static void printArrayList(ArrayList<Process> A) {
+	public static void printArrayList(ArrayList<Process> A) {
 		System.out.println("Index\tPID\tPriority");
 		
 		//TODO: for (int i = 0; i < A.size(); i++) {
@@ -168,7 +168,7 @@ public class MultiTaskingSimulator {
 	 * @param int i; // index
 	 * @param ArrayList<Process>
 	 */
-	private static void printProcess(Process p) {
+	public static void printProcess(Process p) {
 		System.out.println("PID\tPriority");
 		System.out.print(p.getPID());
 		System.out.println("\t" + p.getPriority());
@@ -179,15 +179,15 @@ public class MultiTaskingSimulator {
 	 * ArrayList of Processes.
 	 * @param ArrayList<Process> A
 	 */
-	private static void startMenu(ArrayList<Process> A) {
+	public static void startMenu(ArrayList<Process> A) {
 		String choice = null;
 		while (choice != "q" || choice != "Q") {
 			System.out.println("************ Menu Of Availiable Options ************");
 			System.out.println("1. Show current ArrayList of Processes.");
-			System.out.println("2. View and remove the first priority process.");
+			System.out.println("2. View and remove the highest priority process.");
 			System.out.println("3. Increase priority of a specified process.");
 			System.out.println("4. Insert a new process with a random priority index.");
-			System.out.println("5. Sort Processes by priority and displays list of Processes\n");
+			System.out.println("5. Sort Processes by priority and displays list of Processes");
 			System.out.println("Q. Quit.\n");
 			
 			System.out.print("Please type in an option and press enter: ");
