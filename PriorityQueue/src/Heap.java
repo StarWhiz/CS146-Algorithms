@@ -5,7 +5,7 @@ import java.util.Collections;
  * This class is not really for instantiating objects. It's just contains methods of HeapSort 
  * that can be performed on an ArrayList<Process> that gets passed into it.
  * 
- * @author StarFroz
+ * @author Tai Dao
  */
 public class Heap {
 	static int a_HeapSize;
