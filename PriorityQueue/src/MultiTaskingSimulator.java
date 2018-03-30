@@ -16,7 +16,7 @@ public class MultiTaskingSimulator {
 		ArrayList <Process> A = new ArrayList<Process> ();
 		for (int i = 0; i < 20 ; i++) {
 			currentPID = i;
-			A.add(new Process(currentPID)); // add 20 Processes into ArrayList
+			A.add(new Process(currentPID)); // add 20 Processes into ArrayList 
 			//This ArrayList represents the heap.
 		}
 		Heap.buildMaxHeap(A);

@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This class is not really for instantiating objects. It's just contains methods of HeapSort 
+ * that can be performed on an ArrayList<Process> that gets passed into it.
+ * 
+ * @author StarFroz
+ */
 public class Heap {
 	static int a_HeapSize;
 	/**
@@ -99,8 +105,8 @@ public class Heap {
 	 */
 	public static void maxHeapInsert(ArrayList<Process> A, Process p) {
 		a_HeapSize++;
-		Process newProcess = new Process();
-		newProcess.setPriority(0);
+		Process newProcess = new Process(); //Calling new Process() without arguments creates
+											// a Process with the lowest priority of 0 by default
 		A.add(newProcess);
 		heapIncreaseKey(A, a_HeapSize, p);
 	}

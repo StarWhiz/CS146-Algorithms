@@ -50,7 +50,7 @@ public class Process implements Comparable<Process> {
 	
 	
 	/**
-	 * This funciton increases the priority of the Process by 1
+	 * This function increases the priority of the Process by 1
 	 */
 	public void increasePriority () {
 		priority = priority + 2500;
