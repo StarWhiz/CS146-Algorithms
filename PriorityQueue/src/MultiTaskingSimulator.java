@@ -91,9 +91,12 @@ public class MultiTaskingSimulator {
 			throw new RuntimeException("Error: Heap Underflow.");
 		}
 		Process max = A.get(0);
+
+
+		A.set(0, A.get(a_HeapSize));
+		
 		A.remove(0);
 		a_HeapSize--;
-		A.set(0, A.get(a_HeapSize));
 		maxHeapify(A,0);
 		return max;
 	}
@@ -119,7 +122,7 @@ public class MultiTaskingSimulator {
 	public static void maxHeapInsert(ArrayList<Process> A, Process p) {
 		a_HeapSize++;
 		Process newProcess = new Process(currentPID);
-		newProcess.setPriority(Integer.MIN_VALUE);
+		newProcess.setPriority(0);
 		A.add(newProcess);
 		heapIncreaseKey(A, a_HeapSize, p);
 	}
