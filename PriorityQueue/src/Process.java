@@ -3,6 +3,14 @@ public class Process implements Comparable<Process> {
 	private int priority;
 	private String processID;
 	
+	/** This is a constructor for creating unnamed lowest priority Process
+	 */
+	Process() {
+		priority = 0;
+		processID = null;
+	}
+	
+	
 	/**
 	 * This constructor initializes the priority of the Process when it is created
 	 * with a random number from 1 to 9999.
