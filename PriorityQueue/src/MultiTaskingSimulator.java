@@ -209,7 +209,7 @@ public class MultiTaskingSimulator {
 			    	break;
 			    case "2": 
 			    	Boolean repeat = true;
-			    	System.out.println("Given the list is not heapsorted. The highest priority process is: ");
+			    	System.out.println("The highest priority process is: ");
 			    	Process highestPriorityProcess = heapMaximum(A);
 			    	printProcess(highestPriorityProcess);
 			    	System.out.println();
