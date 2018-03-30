@@ -248,10 +248,6 @@ public class MultiTaskingSimulator {
 				    		A.get(processChoice).increasePriority();
 				    		heapIncreaseKey(A, processChoice, A.get(processChoice));
 				    		
-				    		System.out.println("Process Priority Increased.");
-				    		printProcess(A.get(processChoice));
-				    		System.out.println();
-				    		
 				    		printArrayList(A);
 				    		break;
 				    		
