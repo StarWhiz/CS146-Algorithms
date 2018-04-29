@@ -37,7 +37,7 @@ public class BstTester {
 	 * This function is used to print the key Node that was passed to it
 	 * @param Node z
 	 */
-	public static void printNode(Node z) {
+	public static void printNodeKey(Node z) {
 		System.out.println("Process Name: " + z.getKey().getPID() + "\t" + "Priority: " + z.getKey().getPriority());
 		System.out.println();
 	}
@@ -67,6 +67,7 @@ public class BstTester {
 			
 			System.out.print("Please type in an option and press enter: ");
 		    Scanner scan = new Scanner(System.in);
+	    	Scanner scanPriority = new Scanner(System.in);
 		    choice = scan.nextLine();
 		    System.out.println();
 		    switch(choice) {
@@ -77,15 +78,13 @@ public class BstTester {
 			    	boolean validInput = false;
 			    	while (!validInput) {
 				    	int priorityInput;
-				    	Scanner sc = new Scanner(System.in);
-				
 				    	System.out.println("Here is a list of all the processes currently running: ");
 						t.inOrderTreeWalk(t.getRoot());
 				    	System.out.print("\nPlease enter the priority of the process you want to delete: ");
-				    	while (!sc.hasNextInt()) {
-				    		sc.next();
+				    	while (!scanPriority.hasNextInt()) {
+				    		scanPriority.next();
 				    	}
-				    	priorityInput = sc.nextInt();
+				    	priorityInput = scanPriority.nextInt();
 				    	
 						Node z = t.treeSearch(t.getRoot(), priorityInput);
 						
@@ -98,7 +97,7 @@ public class BstTester {
 							t.treeDelete(t, z);
 							t.inOrderTreeWalk(t.getRoot());	
 							System.out.print("\nThe Process Deleted Was...");
-							printNode(z);
+							printNodeKey(z);
 						}
 			    	}
 			    	break;
@@ -113,6 +112,7 @@ public class BstTester {
 			    case "Q": 
 			    case "q": 
 			    	scan.close();
+			    	scanPriority.close();
 			    	System.out.println("Exiting... Thank you and have a nice day!");
 			    	System.exit(1);
 			    	break;

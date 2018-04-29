@@ -47,18 +47,6 @@ public class Process implements Comparable<Process> {
 		priority = p;
 	}
 	
-	
-	/**
-	 * This function increases the priority of the Process by 1
-	 */
-	public void increasePriority () {
-		priority = priority + 2500;
-		if (priority > 9999) {
-			priority = 9999;
-		}
-	}
-	
-	
 	/**
 	 * This function takes another Process and compares it's priority with the current process.
 	 * @param Process
