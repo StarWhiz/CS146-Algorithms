@@ -1,24 +1,50 @@
-
+/**
+ * This class is for creating Node objects. All node objects are comparable.
+ * 
+ * @author Tai Dao
+ */
 
 public class Node implements Comparable<Node>{
     Process key;
-    Node left, right;
-    
-    Node(){
-    	//key = null;
-    	left = null;
-    	right = null;
-    }
-
-    public Node(Process p) {
-        key = null;
-        left = right = null;
-    }
-
+    Node left;
+    Node right;
+    Node parent;
     
     /**
+     * Constructor for new empty node. All values initialized to null.
+     */
+    Node() {
+    	key = null;
+    	left = null;
+    	right = null;
+    	parent = null;
+    }
+
+    /**
+     * Constructor for when a process is specified. This sets the key equal
+     * to the process p that was passed onto the function.
+     * 
+     * @param p // a Process
+     */
+	public Node(Process p) {
+        key = p;
+    	left = null;
+    	right = null;
+    	parent = null;
+    }
+    
+
+
+	/**
      * The compareTo method is used to compare Nodes in the binary search
-     * tree based on the key process's priority
+     * tree based on the key process's priority. 
+     * 
+     * @parem n // a Node
+     * @return -1, 0, or 1
+     * 
+     * A result of -1 means the current Node is less than the node that was passed to it
+     * A result of 0 means the current Node is equal to the node that was passed to it
+     * A result of 1 means the current Node is greater than the node that was passed to it
      */
 	@Override
 	public int compareTo(Node n) {
@@ -31,6 +57,18 @@ public class Node implements Comparable<Node>{
 		else {
 			return 1;
 		}
+	}
+	
+	/**
+	 * This function returns the key of the Node
+	 * @return
+	 */
+    public Process getKey() {
+		return key;
+	}
+
+	public void setKey(Process key) {
+		this.key = key;
 	}
 	
 	public int getPriority() {
@@ -49,6 +87,13 @@ public class Node implements Comparable<Node>{
 	}
 	public void setRightChild(Node n) {
 		right = n;
+	}
+    public Node getParent() {
+		return parent;
+	}
+
+	public void setParent(Node parent) {
+		this.parent = parent;
 	}
 }
 

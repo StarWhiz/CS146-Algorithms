@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Binary Search Tree
  * 
@@ -17,13 +19,19 @@ d) Make a sorted list of processes according to the priority codes from the BST.
 public class BstTester {
 
 	public static void main(String[] args) {
-		System.out.println("hello");
-		Process p1 = new Process(1);
-		//Insert Process into Tree.
-		//Repeat..args
-		
+		ArrayList <Process> A = new ArrayList<Process> ();
+		int currentPID;
 		Tree t = new Tree();
-		t.treeInsert(t, p1);
+		
+		
+		// creates 20 Processes with random priorities into the Tree 
+		for (int i = 0; i < 20 ; i++) {
+			currentPID = i;
+			Process newProcess = new Process(currentPID); 
+			t.processInsert(newProcess);
+		}
+		
+		t.inOrderTreeWalk(t.getRoot());
 		
 	}
 }
