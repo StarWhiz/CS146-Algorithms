@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 /**
  * Process Hash Tables
  * @author Tai Dao
@@ -20,13 +22,16 @@ public class HashTableTester {
 			currentPID++;
 		}
 		
-		Process tempProcess2 = hashTable.getProcess(0);
-		printProcess(tempProcess2);
+		hashTable.printHashTable();
+		//Process tempProcess2 = hashTable.getProcess(0);
+		//printProcess(tempProcess2);
 	}
 	
 	public static void printProcess(Process p) {
 		System.out.print("PID: " + p.getPID() + ", ");
 		System.out.println("Priority: " + p.getPriority());
 	}
+	
+	
 
 }
