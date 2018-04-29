@@ -74,17 +74,40 @@ public class Tree {
     	}
     }
     
-    //TODO
-    public Node treeSearch (Node x, int k) {
+    //TODO treeSearch Recursive
+    public Node treeSearchRecursive (Node x, int k) {
     	if (x == null || k == x.getKey().getPriority()) {
     		return x;
     	}
     	if (k < x.getKey().getPriority()) {
-    		return treeSearch(x.getLeftChild(), k);	
+    		return treeSearchRecursive(x.getLeftChild(), k);	
     	}
     	else {
-    		return treeSearch(x.getRightChild(), k);
+    		return treeSearchRecursive(x.getRightChild(), k);
     	}
+    }
+    
+    //TODO treeSearch
+    public Node treeSearch (Node x, int k) {
+    	while (x != null && k != x.getKey().getPriority()) {
+    		if (k < x.key.getPriority()) {
+    			if (x.getLeftChild() == null) {
+    				return null; // for cases where the key entered into the search does not exist
+    			}
+    			else {
+        			x = x.getLeftChild();
+    			}
+    		}
+    		else {
+    			if (x.getRightChild() == null) {
+    				return null; // for cases where the key entered into the search does not exist
+    			}
+    			else {
+        			x = x.getRightChild();
+    			}
+    		}
+    	}
+    	return x;
     }
     
     /**
