@@ -19,6 +19,14 @@ public class HashTableTester {
 			hashTable.hashInsert(newProcess);
 			currentPID++;
 		}
+		
+		Process tempProcess2 = hashTable.getProcess(0);
+		printProcess(tempProcess2);
+	}
+	
+	public static void printProcess(Process p) {
+		System.out.print("PID: " + p.getPID() + ", ");
+		System.out.println("Priority: " + p.getPriority());
 	}
 
 }
