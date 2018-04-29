@@ -1,16 +1,29 @@
 
 public class Tree {
     Node root = null;
- 
+    
+    /**
+     * Constructor to create a empty tree with root = null
+     */
     Tree() { 
-       
     }
     
+    /**
+     * This function is used to insert a process into the tree.
+     * It creates a new Node and sets it's key to the process that was passed into it.
+     * Then treeInsert is called to insert the Node into the BST.
+     * @param Process p
+     */
     public void processInsert(Process p) {
     	Node z = new Node(p);
     	treeInsert(this, z);
     }
     
+    /**
+     * This function inserts a Node into the tree.
+     * @param Tree t
+     * @param Node z
+     */
     public void treeInsert(Tree t, Node z) {
     	Node y = null; //parent node
     	Node x = t.getRoot(); //current node
@@ -38,6 +51,14 @@ public class Tree {
     	}
     }
     
+    /**
+     * This function replaces one subtree as a child of its parent with another subtree.
+     * Used by treeDelete
+     * 
+     * @param Tree t
+     * @param Node u
+     * @param Node v
+     */
     public void transplant(Tree t, Node u, Node v ) {
     	if (u.getParent() == null) {
     		t.setRoot(v);
@@ -53,6 +74,24 @@ public class Tree {
     	}
     }
     
+    //TODO
+    public Node treeSearch (Node x, int k) {
+    	if (x == null || k == x.getKey().getPriority()) {
+    		return x;
+    	}
+    	if (k < x.getKey().getPriority()) {
+    		return treeSearch(x.getLeftChild(), k);	
+    	}
+    	else {
+    		return treeSearch(x.getRightChild(), k);
+    	}
+    }
+    
+    /**
+     * This function deletes a node in the tree.
+     * @param Tree t
+     * @param Node z
+     */
     public void treeDelete(Tree t, Node z) {
     	Node y = new Node();
     	
@@ -64,8 +103,7 @@ public class Tree {
     	}
     	else {
     		y = treeMinimum(z.getRightChild());
-    		
-    		if(y.getParent().compareTo(z) == -1 || y.getParent().compareTo(z) == 1) { //y.p != z
+    		if(y.getParent().compareTo(z) != 0) { //y.p != z
     			transplant(t, y, y.getRightChild());
     			y.setRightChild(z.getRightChild());
     			y.getRightChild().setParent(y);
@@ -77,6 +115,12 @@ public class Tree {
     	
     }
     
+    /**
+     * This function is a recursive algorithm that prints the key of all the nodes of
+     * the tree in sorted order.
+     * 
+     * @param Node x // The root of the tree
+     */
     public void inOrderTreeWalk(Node x) {
     	if (x != null) {
     		inOrderTreeWalk(x.getLeftChild());
@@ -85,7 +129,11 @@ public class Tree {
     	}
     }
     
-    
+    /**
+     * This function gets the Node with the lowest key.
+     * @param x
+     * @return
+     */
     public Node treeMinimum(Node x) {
     	while (x.left != null) {
     		x = x.getLeftChild();
