@@ -74,20 +74,16 @@ public class Tree {
     	}
     }
     
-    //TODO treeSearch Recursive
-    public Node treeSearchRecursive (Node x, int k) {
-    	if (x == null || k == x.getKey().getPriority()) {
-    		return x;
-    	}
-    	if (k < x.getKey().getPriority()) {
-    		return treeSearchRecursive(x.getLeftChild(), k);	
-    	}
-    	else {
-    		return treeSearchRecursive(x.getRightChild(), k);
-    	}
-    }
-    
-    //TODO treeSearch
+    /**
+     * This function does an iterative tree search for a Process
+     * based on it's priority
+     * 
+     * @param x // the node typically the root of the tree
+     * @param int k // the priority
+     * @return Node x //a node that was searched for.
+     * 
+     * x returns null whenever the key entered in does not exist in the tree
+     */
     public Node treeSearch (Node x, int k) {
     	while (x != null && k != x.getKey().getPriority()) {
     		if (k < x.key.getPriority()) {
