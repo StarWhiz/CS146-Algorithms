@@ -151,7 +151,7 @@ public class Tree {
     /**
      * This function gets the Node with the lowest key.
      * @param x
-     * @return
+     * @return Node x
      */
     public Node treeMinimum(Node x) {
     	while (x.left != null) {
@@ -160,16 +160,21 @@ public class Tree {
     	return x;
     }
     
-    public Node treeMaximum (Node x) {
-    	while (x.right != null) {
-    		x = x.getRightChild();
-    	}
-    	return x;
-    }
-    
+    /**
+     * This function returns the Node of the root of the tree
+     * 
+     * @return Node root
+     */
     public Node getRoot() {
     	return root;
     }
+    
+    /**
+     * This function sets the root Node of the tree to the Node that was
+     * passed to it.
+     * 
+     * @parem Node n
+     */
     public void setRoot(Node n) {
     	root = n;
     }
