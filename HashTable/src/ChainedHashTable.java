@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ChainedHashTable {
@@ -15,8 +14,7 @@ public class ChainedHashTable {
 	
 	public void hashInsert(ChainedHashTable this, Process p) {
 		int hashResult = p.getPriority() % 11;
-		hashTable[hashResult].push(e);
-		
+		hashTable[hashResult].push(p);
 	}
 	
 }

@@ -9,10 +9,16 @@ d) Delete a process from the chaining Hash Table.
 e) Make a list of processes in the hash table.
  */
 public class HashTableTester {
+	static ChainedHashTable hashTable = new ChainedHashTable();
+	static int currentPID = 0;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Hello World");
+		// creates 20 Processes with random priorities into the Tree 
+		for (int i = 0; i < 20 ; i++) {
+			Process newProcess = new Process(currentPID); 
+			hashTable.hashInsert(newProcess);
+			currentPID++;
+		}
 	}
 
 }
