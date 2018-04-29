@@ -24,7 +24,7 @@ public class BstTester {
 	public static void main(String[] args) {
 		
 		// creates 20 Processes with random priorities into the Tree 
-		for (int i = 0; i < 9 ; i++) {
+		for (int i = 0; i < 20 ; i++) {
 			Process newProcess = new Process(currentPID); 
 			t.processInsert(newProcess);
 			currentPID++;
@@ -38,7 +38,7 @@ public class BstTester {
 	 * @param Node z
 	 */
 	public static void printNode(Node z) {
-		System.out.println("Process: " + z.getKey().getPID() + "\t" + "Priority: " + z.getKey().getPriority());
+		System.out.println("Process Name: " + z.getKey().getPID() + "\t" + "Priority: " + z.getKey().getPriority());
 		System.out.println();
 	}
 	
@@ -47,7 +47,7 @@ public class BstTester {
 	 * @param Process p
 	 */
 	public static void printProcess(Process p) {
-		System.out.println("Process: " + p.getPID() + "\t" + "Priority: " + p.getPriority());
+		System.out.println("Process Name: " + p.getPID() + "\t" + "Priority: " + p.getPriority());
 		System.out.println();
 	}
 	
