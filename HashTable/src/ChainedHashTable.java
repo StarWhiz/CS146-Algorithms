@@ -1,7 +1,6 @@
 import java.util.LinkedList;
 
 public class ChainedHashTable {
-	//LinkedList<Process> a;
 	LinkedList[] hashTable; // array of linked lists..
 	
 	
@@ -15,7 +14,7 @@ public class ChainedHashTable {
 		
 	}
 	
-	public void hashInsert(ChainedHashTable this, Process p) {
+	public void hashInsert(Process p) {
 		int hashResult = p.getPriority() % 11; // this is the hash function
 		hashTable[hashResult].add(p); //A Process is added at the end of the LinkedList
 	}

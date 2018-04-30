@@ -35,12 +35,14 @@ public class HashTableTester {
 	 */
 	public static void startMenu() {
 		String choice = null;
+		boolean validInput;
 		while (choice != "q" || choice != "Q") {
 			System.out.println();
 			System.out.println("************ Menu Of Availiable Options ************");
 			System.out.println("1. Show sorted list Processes from chaining hash table.");
 			System.out.println("2. Search for a Process ID from the chaining hash table based on it's priority.");
-			System.out.println("3. Insert a random process into the chaining hash table.");
+			System.out.println("3. Delete a Process from the chaining hash table based on it's PID.");
+			System.out.println("4. Insert a random process into the chaining hash table.");
 			System.out.println("Q. Quit.\n");
 			
 			System.out.print("Please type in an option and press enter: ");
@@ -53,12 +55,12 @@ public class HashTableTester {
 					hashTable.printHashTable();
 			    	break;
 			    case "2": 
-			    	boolean validInput = false;
+			    	validInput = false;
 			    	while (!validInput) {
 				    	int priorityInput;
 				    	System.out.println("Here is a list of all the processes currently running: ");
 						hashTable.printHashTable();
-				    	System.out.print("\nPlease enter the priority of the process you want to delete: ");
+				    	System.out.print("\nPlease enter the priority of the process ID you want to find: ");
 				    	while (!scanPriority.hasNextInt()) {
 				    		scanPriority.next();
 				    	}
@@ -72,11 +74,34 @@ public class HashTableTester {
 						}
 						else {
 							validInput = true;
-							System.out.println("\nThe Process's Name with this priority is: " + found.getPID());
+							System.out.println("The Process's Name with this priority is: " + found.getPID());
 						}
 			    	}
 			    	break;
 			    case "3": 
+			    	validInput = false;
+			    	while (!validInput) {
+				    	int priorityInput;
+				    	System.out.println("Here is a list of all the processes currently running: ");
+						hashTable.printHashTable();
+				    	System.out.print("\nPlease enter the priority of the Process you want to delete: ");
+				    	while (!scanPriority.hasNextInt()) {
+				    		scanPriority.next();
+				    	}
+				    	priorityInput = scanPriority.nextInt();
+				    	Process found = hashTable.searchProcessByPriority(priorityInput);
+
+						if (found == null) {
+							System.out.println("Cannot find a process with priority " + priorityInput + "... Please try again...");
+							validInput = false;
+						}
+						else {
+							validInput = true;
+							//TODO Call Delete
+						}
+			    	}
+			    	break;
+			    case "4":
 					Process newProcess = new Process(currentPID); 
 			    	currentPID++;
 					System.out.println("This process will be inserted: ");
