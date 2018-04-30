@@ -28,14 +28,13 @@ public class ChainedHashTable {
 		for (int j = 0; j < 11; j++) {
 			int sizeOfLL = hashTable[j].size();
 			//System.out.println("Last Index in Linked List: " + sizeOfLL);
-			System.out.println("Currently printing all Processes in H[" + j + "]");
+			System.out.println("__________H[" + j + "]__________");
 			for (int i = 0; i < sizeOfLL; i++) {
 				printProcess((Process) hashTable[j].get(i));
 			}
+			System.out.println();
 		}
 	}
-
-
 	
 	public static void printProcess(Process p) {
 		System.out.print("PID: " + p.getPID() + ", ");
