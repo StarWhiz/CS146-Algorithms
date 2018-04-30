@@ -24,6 +24,20 @@ public class ChainedHashTable {
 		return (Process) hashTable[index].element();
 	}
 	
+	public Process searchProcessByPriority (int priority) {
+		int hashResult = priority % 11;
+		int sizeOfLL = hashTable[hashResult].size();
+		Process p;
+		
+		for (int i = 0; i < sizeOfLL; i++) {
+			p = (Process) hashTable[hashResult].get(i);
+			if (priority == p.getPriority()) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
 	public void printHashTable () {	
 		for (int j = 0; j < 11; j++) {
 			int sizeOfLL = hashTable[j].size();
