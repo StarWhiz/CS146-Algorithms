@@ -5,24 +5,19 @@ import java.util.Scanner;
  * Process Hash Tables
  * @author Tai Dao
  *
-a) Create a 11-slots separate chaining Hash Table for the 20 processes.
-b) Insert a process to the chaining Hash Table.
-c) Search a process's name by entering a priority code.
-d) Delete a process from the chaining Hash Table.
-e) Make a list of processes in the hash table.
  */
 public class HashTableTester {
-	static ChainedHashTable hashTable = new ChainedHashTable();
+	static LinkedList<Process>[] table = new LinkedList[11]; // Array of linked lists. Has 11 slots for a 11-slot chaining hash table.
+	static ChainedHash chainedHash = new ChainedHash(table);
 	static int currentPID = 0;
 
 	public static void main(String[] args) {
-		// creates 20 Processes with random priorities into the Tree 
+		// creates 20 Processes with random priorities into the table 
 		for (int i = 0; i < 20 ; i++) {
 			Process newProcess = new Process(currentPID); 
-			hashTable.hashInsert(newProcess);
+			chainedHash.hashInsert(table, newProcess);
 			currentPID++;
 		}
-		
 		startMenu();
 
 	}
@@ -52,20 +47,20 @@ public class HashTableTester {
 		    System.out.println();
 		    switch(choice) {
 			    case "1": 
-					hashTable.printHashTable();
+			    	chainedHash.printChainedHashTable(table);
 			    	break;
 			    case "2": 
 			    	validInput = false;
 			    	while (!validInput) {
 				    	int priorityInput;
 				    	System.out.println("Here is a list of all the processes currently running: ");
-						hashTable.printHashTable();
+				    	chainedHash.printChainedHashTable(table);
 				    	System.out.print("\nPlease enter the priority of the process ID you want to find: ");
 				    	while (!scanPriority.hasNextInt()) {
 				    		scanPriority.next();
 				    	}
 				    	priorityInput = scanPriority.nextInt();
-				    	Process found = hashTable.searchProcessByPriority(priorityInput);
+				    	Process found = chainedHash.searchProcessByPriority(table, priorityInput);
 						
 						
 						if (found == null) {
@@ -83,13 +78,13 @@ public class HashTableTester {
 			    	while (!validInput) {
 				    	int priorityInput;
 				    	System.out.println("Here is a list of all the processes currently running: ");
-						hashTable.printHashTable();
+				    	chainedHash.printChainedHashTable(table);
 				    	System.out.print("\nPlease enter the priority of the Process you want to delete: ");
 				    	while (!scanPriority.hasNextInt()) {
 				    		scanPriority.next();
 				    	}
 				    	priorityInput = scanPriority.nextInt();
-				    	Process found = hashTable.searchProcessByPriority(priorityInput);
+				    	Process found = chainedHash.searchProcessByPriority(table, priorityInput);
 
 						if (found == null) {
 							System.out.println("Cannot find a process with priority " + priorityInput + "... Please try again...");
@@ -102,12 +97,14 @@ public class HashTableTester {
 			    	}
 			    	break;
 			    case "4":
+			    	/**
 					Process newProcess = new Process(currentPID); 
 			    	currentPID++;
 					System.out.println("This process will be inserted: ");
 					printProcess(newProcess);
 					hashTable.hashInsert(newProcess);
 					hashTable.printHashTable();
+					*/
 			    	break;
 			    case "Q": 
 			    case "q": 
