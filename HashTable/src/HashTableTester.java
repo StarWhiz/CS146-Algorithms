@@ -32,8 +32,8 @@ public class HashTableTester {
 			System.out.println();
 			System.out.println("************ Menu Of Availiable Options ************");
 			System.out.println("1. Show sorted list Processes from chaining hash table.");
-			System.out.println("2. Search for a Process ID from the chaining hash table based on it's priority.");
-			System.out.println("3. Delete a Process from the chaining hash table based on it's PID.");
+			System.out.println("2. Search for a Process ID from the chaining hash table based on the priority specified.");
+			System.out.println("3. Delete a Process from the chaining hash table if it matches the specified priority.");
 			System.out.println("4. Insert a random process into the chaining hash table.");
 			System.out.println("Q. Quit.\n");
 			System.out.print("Please type in an option and press enter: ");
@@ -57,16 +57,17 @@ public class HashTableTester {
 				    		scanPriority.next();
 				    	}
 				    	priorityInput = scanPriority.nextInt();
-				    	Process found = chainedHash.hashSearch(table, priorityInput);
-						
-						
-						if (found == null) {
+				    	
+				    	//Start Search
+				    	Process foundProcess = chainedHash.hashSearch(table, priorityInput);
+							
+						if (foundProcess == null) { //Search found nothing
 							System.out.println("Cannot find a process with priority " + priorityInput + "... Please try again...");
 							validInput = false;
-						}
-						else {
+						}		
+						else { //Search found something
 							validInput = true;
-							System.out.println("The Process's Name with this priority is: " + found.getPID());
+							System.out.println("The Process's Name with this priority is: " + foundProcess.getPID());
 						}
 			    	}
 			    	break;
@@ -81,15 +82,19 @@ public class HashTableTester {
 				    		scanPriority.next();
 				    	}
 				    	priorityInput = scanPriority.nextInt();
-				    	Process found = chainedHash.hashSearch(table, priorityInput);
-
-						if (found == null) {
+				    	
+				    	//Start Search
+				    	Process foundProcess = chainedHash.hashSearch(table, priorityInput);
+						if (foundProcess == null) { //Search found nothing
 							System.out.println("Cannot find a process with priority " + priorityInput + "... Please try again...");
 							validInput = false;
 						}
-						else {
+						else { //Search found something
 							validInput = true;
-							//TODO Call Delete
+							//Delete Process found from search
+							chainedHash.hashDelete(table, foundProcess);	
+							System.out.print("The Process Deleted Was... ");
+							printProcess(foundProcess);
 						}
 			    	}
 			    	break;
@@ -117,7 +122,8 @@ public class HashTableTester {
 	}
 	
 	/**
-	 * This function is used to print the Process that was passed to it
+	 * This function is used to print the Process that was passed to it.
+	 * 
 	 * @param Process p
 	 */
 	public static void printProcess(Process p) {
