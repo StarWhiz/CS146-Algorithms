@@ -12,17 +12,14 @@ public class HashTableTester {
 	static int currentPID = 0;
 
 	public static void main(String[] args) {
-		// creates 20 Processes with random priorities into the table 
+		// create 20 Processes with random priorities into the table 
 		for (int i = 0; i < 20 ; i++) {
 			Process newProcess = new Process(currentPID); 
 			chainedHash.hashInsert(table, newProcess);
 			currentPID++;
 		}
 		startMenu();
-
 	}
-	
-
 	
 	/**
 	 * This function displays a menu with operations that can be done to the
@@ -39,12 +36,12 @@ public class HashTableTester {
 			System.out.println("3. Delete a Process from the chaining hash table based on it's PID.");
 			System.out.println("4. Insert a random process into the chaining hash table.");
 			System.out.println("Q. Quit.\n");
-			
 			System.out.print("Please type in an option and press enter: ");
 		    Scanner scan = new Scanner(System.in);
 	    	Scanner scanPriority = new Scanner(System.in);
 		    choice = scan.nextLine();
 		    System.out.println();
+		    
 		    switch(choice) {
 			    case "1": 
 			    	chainedHash.printChainedHashTable(table);
@@ -60,7 +57,7 @@ public class HashTableTester {
 				    		scanPriority.next();
 				    	}
 				    	priorityInput = scanPriority.nextInt();
-				    	Process found = chainedHash.searchProcessByPriority(table, priorityInput);
+				    	Process found = chainedHash.hashSearch(table, priorityInput);
 						
 						
 						if (found == null) {
@@ -84,7 +81,7 @@ public class HashTableTester {
 				    		scanPriority.next();
 				    	}
 				    	priorityInput = scanPriority.nextInt();
-				    	Process found = chainedHash.searchProcessByPriority(table, priorityInput);
+				    	Process found = chainedHash.hashSearch(table, priorityInput);
 
 						if (found == null) {
 							System.out.println("Cannot find a process with priority " + priorityInput + "... Please try again...");

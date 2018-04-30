@@ -19,13 +19,13 @@ public class ChainedHash {
 		table[hashResult].add(p); //A Process is added at the end of the LinkedList
 	}
 	
-	public Process searchProcessByPriority (LinkedList<Process>[] table, int priority) {
+	public Process hashSearch (LinkedList<Process>[] table, int priority) {
 		int hashResult = priority % table.length;
 		int sizeOfLL = table[hashResult].size();
 		Process p;
 		
 		for (int i = 0; i < sizeOfLL; i++) {
-			p = (Process) table[hashResult].get(i);
+			p = table[hashResult].get(i);
 			if (priority == p.getPriority()) {
 				return p;
 			}
@@ -39,7 +39,7 @@ public class ChainedHash {
 			//System.out.println("Last Index in Linked List: " + sizeOfLL);
 			System.out.println("______HashTable[" + j + "]______");
 			for (int i = 0; i < sizeOfLL; i++) {
-				printProcess((Process) table[j].get(i));
+				printProcess(table[j].get(i));
 			}
 			System.out.println();
 		}
