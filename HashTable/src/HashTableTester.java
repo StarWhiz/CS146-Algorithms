@@ -99,14 +99,12 @@ public class HashTableTester {
 			    	}
 			    	break;
 			    case "4":
-			    	/**
+
 					Process newProcess = new Process(currentPID); 
 			    	currentPID++;
-					System.out.println("This process will be inserted: ");
-					printProcess(newProcess);
-					hashTable.hashInsert(newProcess);
-					hashTable.printHashTable();
-					*/
+					chainedHash.hashInsert(table, newProcess);
+					System.out.println("The inserted process was: ");
+					printProcess(newProcess);			
 			    	break;
 			    case "Q": 
 			    case "q": 
