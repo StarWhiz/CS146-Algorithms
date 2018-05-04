@@ -1,6 +1,6 @@
 
 public class RedBlackTreeTester {
-	static RBTree t = new RBTree();
+	static TreeRB t = new TreeRB();
 	static int currentPID = 0;
 	
 	public static void main(String[] args) {

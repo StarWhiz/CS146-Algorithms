@@ -1,15 +1,17 @@
 
-public class RBTree {
+public class TreeRB {
     Node root = null;
+    Node treeNil = null;
+    String color = null;
     
     /**
-     * Constructor to create a empty RBTree with root = null
+     * Constructor to create a empty TreeRB with root = null
      */
-    RBTree() { 
+    TreeRB() { 
     }
     
     /**
-     * This function is used to insert a process into the RBTree.
+     * This function is used to insert a process into the TreeRB.
      * It creates a new Node and sets it's key to the process that was passed into it.
      * Then treeInsert is called to insert the Node into the BST.
      * @param Process p
@@ -20,11 +22,11 @@ public class RBTree {
     }
     
     /**
-     * This function inserts a Node into the RBTree.
-     * @param RBTree t
+     * This function inserts a Node into the TreeRB.
+     * @param TreeRB t
      * @param Node z
      */
-    public void treeInsert(RBTree t, Node z) {
+    public void treeInsert(TreeRB t, Node z) {
     	Node y = null; //parent node
     	Node x = t.getRoot(); //current node
     	
@@ -55,11 +57,11 @@ public class RBTree {
      * This function replaces one subtree as a child of its parent with another subtree.
      * Used by treeDelete
      * 
-     * @param RBTree t
+     * @param TreeRB t
      * @param Node u
      * @param Node v
      */
-    public void transplant(RBTree t, Node u, Node v ) {
+    public void transplant(TreeRB t, Node u, Node v ) {
     	if (u.getParent() == null) {
     		t.setRoot(v);
     	}
@@ -75,14 +77,14 @@ public class RBTree {
     }
     
     /**
-     * This function does an iterative RBTree search for a Process
+     * This function does an iterative TreeRB search for a Process
      * based on it's priority
      * 
-     * @param x // the node typically the root of the RBTree
+     * @param x // the node typically the root of the TreeRB
      * @param int k // the priority
      * @return Node x //a node that was searched for.
      * 
-     * x returns null whenever the key entered in does not exist in the RBTree
+     * x returns null whenever the key entered in does not exist in the TreeRB
      */
     public Node treeSearch (Node x, int k) {
     	while (x != null && k != x.getKey().getPriority()) {
@@ -107,11 +109,11 @@ public class RBTree {
     }
     
     /**
-     * This function deletes a node in the RBTree.
-     * @param RBTree t
+     * This function deletes a node in the TreeRB.
+     * @param TreeRB t
      * @param Node z
      */
-    public void treeDelete(RBTree t, Node z) {
+    public void treeDelete(TreeRB t, Node z) {
     	Node y = new Node();
     	
     	if (z.getLeftChild() == null) {
@@ -136,9 +138,9 @@ public class RBTree {
     
     /**
      * This function is a recursive algorithm that prints the key of all the nodes of
-     * the RBTree in sorted order.
+     * the TreeRB in sorted order.
      * 
-     * @param Node x // The root of the RBTree
+     * @param Node x // The root of the TreeRB
      */
     public void inOrderTreeWalk(Node x) {
     	if (x != null) {
@@ -161,7 +163,7 @@ public class RBTree {
     }
     
     /**
-     * This function returns the Node of the root of the RBTree
+     * This function returns the Node of the root of the TreeRB
      * 
      * @return Node root
      */
@@ -170,7 +172,7 @@ public class RBTree {
     }
     
     /**
-     * This function sets the root Node of the RBTree to the Node that was
+     * This function sets the root Node of the TreeRB to the Node that was
      * passed to it.
      * 
      * @parem Node n
