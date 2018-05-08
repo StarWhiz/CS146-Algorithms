@@ -53,6 +53,17 @@ public class TreeRB {
     	z.setLeftChild(t.getNil());
     	z.setRightChild(t.getNil());
     	z.color = "RED";
+    	
+    	//TODO Call rbInsertFixUP
+    }
+    
+    /**
+     * This function is used to fix any violations of the RBTree caused by treeInsert.
+     */
+    public void rbInsertFixUp(TreeRB t, Node z) {
+    	while (z.getParent().color == "RED") {
+    		
+    	}
     }
     
     /**

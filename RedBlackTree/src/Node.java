@@ -19,6 +19,7 @@ public class Node implements Comparable<Node>{
     	left = null;
     	right = null;
     	parent = null;
+    	color = null;
     }
 
     /**
