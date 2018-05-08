@@ -1,7 +1,7 @@
 
 public class TreeRB {
-    Node root = null;
-    Node treeNil = null;
+    Node treeNil = null; // sentinel nil
+    Node root = treeNil;
     String color = null;
     
     /**
@@ -169,6 +169,15 @@ public class TreeRB {
      */
     public Node getRoot() {
     	return root;
+    }
+    
+    /**
+     * This function returns the Node of the root of the TreeRB
+     * 
+     * @return Node root
+     */
+    public Node getTnil() {
+    	return treeNil;
     }
     
     /**
