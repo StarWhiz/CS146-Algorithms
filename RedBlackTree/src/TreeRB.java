@@ -2,7 +2,6 @@
 public class TreeRB {
     Node treeNil = null; // sentinel nil
     Node root = treeNil;
-    String color = null;
     
     /**
      * Constructor to create a empty TreeRB with root = null
@@ -13,12 +12,12 @@ public class TreeRB {
     /**
      * This function is used to insert a process into the TreeRB.
      * It creates a new Node and sets it's key to the process that was passed into it.
-     * Then treeInsert is called to insert the Node into the BST.
+     * Then rbInsert is called to insert the Node into the BST.
      * @param Process p
      */
     public void processInsert(Process p) {
     	Node z = new Node(p);
-    	treeInsert(this, z);
+    	rbInsert(this, z);
     }
     
     /**
@@ -26,8 +25,8 @@ public class TreeRB {
      * @param TreeRB t
      * @param Node z
      */
-    public void treeInsert(TreeRB t, Node z) {
-    	Node y = null; //parent node
+    public void rbInsert(TreeRB t, Node z) {
+    	Node y = t.getNil(); //parent node
     	Node x = t.getRoot(); //current node
     	
     	while (x != null) {
@@ -42,7 +41,7 @@ public class TreeRB {
     	
     	z.setParent(y);
     	
-    	if (y == null) {
+    	if (y == t.getNil()) {
     		t.setRoot(z);
     	}
     	else if (z.compareTo(y) == -1) {
@@ -51,6 +50,9 @@ public class TreeRB {
     	else {
     		y.setRightChild(z);
     	}
+    	z.setLeftChild(t.getNil());
+    	z.setRightChild(t.getNil());
+    	z.color = "RED";
     }
     
     /**
@@ -176,7 +178,7 @@ public class TreeRB {
      * 
      * @return Node root
      */
-    public Node getTnil() {
+    public Node getNil() {
     	return treeNil;
     }
     

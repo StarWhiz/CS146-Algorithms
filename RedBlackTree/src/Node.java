@@ -9,6 +9,7 @@ public class Node implements Comparable<Node>{
     Node left;
     Node right;
     Node parent;
+    String color = null;
     
     /**
      * Constructor for new empty node. All values initialized to null.
