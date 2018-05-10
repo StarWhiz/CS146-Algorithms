@@ -74,7 +74,8 @@ public class TreeRB {
     				z = z.getParent().getParent(); // move pointer z up the tree
     			} // otherwise if Z's uncle was black to begin with skip... lines 71-73
     			
-    			else if (z == z.getParent().getRightChild()) { // Case 2: if z is the right child. LEFT then RIGHT rotation...
+    			// Case 2: if z is the right child. LEFT then RIGHT rotation...
+    			else if (z == z.getParent().getRightChild()) { 
     				z = z.getParent();
     				//TODO LEFT-ROTATE(T,Z)
     			}
@@ -97,7 +98,7 @@ public class TreeRB {
     				z = z.getParent();
     				//TODO RIGHT-ROTATE(T,Z)
     			}
-    			// Case 3: if z is the left child. RIGHT rotation only...
+    			// Case 3: if z is the right child. LEFT rotation only...
 				z.getParent().setColor("BLACK"); //Case 3
 				z.getParent().getParent().setColor("RED");
 				//TODO LEFT-ROTATE(T,Z)	
