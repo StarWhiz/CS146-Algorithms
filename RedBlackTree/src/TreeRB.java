@@ -65,7 +65,7 @@ public class TreeRB {
     	
     	while (z.getParent().color == "RED") {
     		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
-    			y = z.getParent().getParent().getRightChild(); // y = z's uncle... the right child of z's grandpa
+    			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
     			// Case 1: Z's uncle is red... Re-COLOR
     			if (y.getColor() == "RED") { 
     				z.getParent().setColor("BLACK");
@@ -84,7 +84,7 @@ public class TreeRB {
 				//TODO RIGHT-ROTATE(T,Z)
     		}
     		else { // if z's parent is a right child
-    			y = z.getParent().getParent().getLeftChild(); // y = z's uncle... the left child of z's grandpa
+    			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
     			// Case 1: Z's uncle is red... Re-COLOR
     			if (y.getColor() == "RED") { 
     				z.getParent().setColor("BLACK");
@@ -92,8 +92,8 @@ public class TreeRB {
     				z.getParent().getParent().setColor("RED"); 
     				z = z.getParent().getParent();
     			}
-    			
-    			else if (z == z.getParent().getLeftChild()) { // Case 2: if z is the left child. RIGHT then LEFT rotation...
+    			 // Case 2: if z is the left child. RIGHT then LEFT rotation...
+    			else if (z == z.getParent().getLeftChild()) {
     				z = z.getParent();
     				//TODO RIGHT-ROTATE(T,Z)
     			}
