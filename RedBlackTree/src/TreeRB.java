@@ -78,10 +78,13 @@ public class TreeRB {
     			else {
     				z.getParent().setColor("BLACK"); //Case 3
     				z.getParent().getParent().setColor("RED");
+    				//TODO RIGHT-ROTATE(T,Z)
     			}
     		}
     		else {
-    			//TODO same as then cause with "right" and "left" exchanged
+    			//TODO same as above but now "right" and "left" are exchanged....
+    			//This is the case where z's parent. is the right child of z's grandpa.
+    			
     		}
     	}
     	t.getRoot().setColor("BLACK");
