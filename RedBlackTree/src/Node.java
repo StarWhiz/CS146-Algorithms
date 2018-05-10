@@ -5,7 +5,7 @@
  */
 
 public class Node implements Comparable<Node>{
-    Process key;
+	Process key;
     Node left;
     Node right;
     Node parent;
@@ -130,6 +130,22 @@ public class Node implements Comparable<Node>{
 	 */
 	public void setParent(Node parent) {
 		this.parent = parent;
+	}
+	
+	/**
+	 * This function returns the color of the Node
+	 * @return String color
+	 */
+    public String getColor() {
+		return color;
+	}
+    
+    /**
+     * This function sets the color of the node to the color that was passed to it.
+     * @param color
+     */
+	public void setColor(String color) {
+		this.color = color;
 	}
 }
 

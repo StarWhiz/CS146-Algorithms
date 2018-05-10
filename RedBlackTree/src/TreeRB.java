@@ -61,9 +61,30 @@ public class TreeRB {
      * This function is used to fix any violations of the RBTree caused by treeInsert.
      */
     public void rbInsertFixUp(TreeRB t, Node z) {
+    	Node y = new Node(); //pointer
+    	
     	while (z.getParent().color == "RED") {
-    		
+    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { //if z's parent. is the left child of z's grandpa.
+    			y = z.getParent().getParent().getRightChild(); // y = z's uncle... the right child of z's grandpa
+    			if (y.getColor() == "RED") { // Case 1: Z's uncle is red...
+    				z.getParent().setColor("BLACK");
+    				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
+    				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
+    			}
+    			else if (z == z.getParent().getRightChild()) { // Case 2: z is the right child of it's parent
+    				z = z.getParent(); // z points to parent.
+    				//TODO LEFT-ROTATE(T,Z)
+    			}
+    			else {
+    				z.getParent().setColor("BLACK"); //Case 3
+    				z.getParent().getParent().setColor("RED");
+    			}
+    		}
+    		else {
+    			//TODO same as then cause with "right" and "left" exchanged
+    		}
     	}
+    	t.getRoot().setColor("BLACK");
     }
     
     /**
