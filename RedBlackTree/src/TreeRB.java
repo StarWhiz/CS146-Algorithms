@@ -61,30 +61,46 @@ public class TreeRB {
      * This function is used to fix any violations of the RBTree caused by treeInsert.
      */
     public void rbInsertFixUp(TreeRB t, Node z) {
-    	Node y = new Node(); //pointer
+    	Node y = new Node(); //pointer #2
     	
     	while (z.getParent().color == "RED") {
-    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { //if z's parent. is the left child of z's grandpa.
+    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
     			y = z.getParent().getParent().getRightChild(); // y = z's uncle... the right child of z's grandpa
-    			if (y.getColor() == "RED") { // Case 1: Z's uncle is red...
+    			// Case 1: Z's uncle is red... Re-COLOR
+    			if (y.getColor() == "RED") { 
     				z.getParent().setColor("BLACK");
     				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
     				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
-    			}
-    			else if (z == z.getParent().getRightChild()) { // Case 2: z is the right child of it's parent
-    				z = z.getParent(); // z points to parent.
+    				z = z.getParent().getParent(); // move pointer z up the tree
+    			} // otherwise if Z's uncle was black to begin with skip... lines 71-73
+    			
+    			else if (z == z.getParent().getRightChild()) { // Case 2: if z is the right child. LEFT then RIGHT rotation...
+    				z = z.getParent();
     				//TODO LEFT-ROTATE(T,Z)
     			}
-    			else {
-    				z.getParent().setColor("BLACK"); //Case 3
-    				z.getParent().getParent().setColor("RED");
+    			// Case 3: if z is the left child. RIGHT rotation only...
+				z.getParent().setColor("BLACK"); //Case 3
+				z.getParent().getParent().setColor("RED");
+				//TODO RIGHT-ROTATE(T,Z)
+    		}
+    		else { // if z's parent is a right child
+    			y = z.getParent().getParent().getLeftChild(); // y = z's uncle... the left child of z's grandpa
+    			// Case 1: Z's uncle is red... Re-COLOR
+    			if (y.getColor() == "RED") { 
+    				z.getParent().setColor("BLACK");
+    				y.setColor("BLACK");
+    				z.getParent().getParent().setColor("RED"); 
+    				z = z.getParent().getParent();
+    			}
+    			
+    			else if (z == z.getParent().getLeftChild()) { // Case 2: if z is the left child. RIGHT then LEFT rotation...
+    				z = z.getParent();
     				//TODO RIGHT-ROTATE(T,Z)
     			}
-    		}
-    		else {
-    			//TODO same as above but now "right" and "left" are exchanged....
-    			//This is the case where z's parent. is the right child of z's grandpa.
-    			
+    			// Case 3: if z is the left child. RIGHT rotation only...
+				z.getParent().setColor("BLACK"); //Case 3
+				z.getParent().getParent().setColor("RED");
+				//TODO LEFT-ROTATE(T,Z)	
     		}
     	}
     	t.getRoot().setColor("BLACK");
@@ -92,14 +108,14 @@ public class TreeRB {
     
     /**
      * This function replaces one subtree as a child of its parent with another subtree.
-     * Used by treeDelete
+     * Used by rbDelete
      * 
      * @param TreeRB t
      * @param Node u
      * @param Node v
      */
-    public void transplant(TreeRB t, Node u, Node v ) {
-    	if (u.getParent() == null) {
+    public void rbTransplant(TreeRB t, Node u, Node v ) {
+    	if (u.getParent() == t.getNil()) {
     		t.setRoot(v);
     	}
     	else if ( u == u.getParent().getLeftChild()) {
@@ -108,9 +124,7 @@ public class TreeRB {
     	else {
     		u.getParent().setRightChild(v);
     	}
-    	if (v != null) {
-    		v.setParent(u.getParent());
-    	}
+    	v.setParent(u.getParent());
     }
     
     /**
@@ -123,7 +137,7 @@ public class TreeRB {
      * 
      * x returns null whenever the key entered in does not exist in the TreeRB
      */
-    public Node treeSearch (Node x, int k) {
+    public Node rbSearch (Node x, int k) {
     	while (x != null && k != x.getKey().getPriority()) {
     		if (k < x.key.getPriority()) {
     			if (x.getLeftChild() == null) {
@@ -150,23 +164,23 @@ public class TreeRB {
      * @param TreeRB t
      * @param Node z
      */
-    public void treeDelete(TreeRB t, Node z) {
+    public void rbDelete(TreeRB t, Node z) {
     	Node y = new Node();
     	
     	if (z.getLeftChild() == null) {
-    		transplant(t, z, z.getRightChild());
+    		rbTransplant(t, z, z.getRightChild());
     	}
     	else if (z.getRightChild() == null) {
-    		transplant(t, z, z.getLeftChild());
+    		rbTransplant(t, z, z.getLeftChild());
     	}
     	else {
     		y = treeMinimum(z.getRightChild());
     		if(y.getParent().compareTo(z) != 0) { //y.p != z
-    			transplant(t, y, y.getRightChild());
+    			rbTransplant(t, y, y.getRightChild());
     			y.setRightChild(z.getRightChild());
     			y.getRightChild().setParent(y);
     		}
-    		transplant(t, z, y);
+    		rbTransplant(t, z, y);
     		y.setLeftChild(z.getLeftChild());
     		y.getLeftChild().setParent(y);
     	}
