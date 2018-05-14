@@ -41,7 +41,6 @@ public class TreeRB {
     			x = x.getRightChild();
     		}
     	}
-    	
     	z.setParent(y);
     	
     	if (y == t.getNil()) {
@@ -64,8 +63,6 @@ public class TreeRB {
      */
     public void rbInsertFixUp(TreeRB t, Node z) {
     	Node y = new Node(); //pointer #2
-    	
-    	if (z.getParent() == t.getNil()) { //gotta check if z's parent exists...
 	    	while (z.getParent().color == "RED") {
 	    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
 	    			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
@@ -107,7 +104,6 @@ public class TreeRB {
 					leftRotate(t, z.getParent().getParent());
 	    		}
 	    	}
-    	}
     	t.getRoot().setColor("BLACK");
     }
     
@@ -249,7 +245,7 @@ public class TreeRB {
     public void inOrderTreeWalk(Node x) {
     	if (x != this.getNil()) {
     		inOrderTreeWalk(x.getLeftChild());
-    		System.out.println("Process: " + x.getKey().getPID() + "\t" + "Priority: " + x.getKey().getPriority());
+    		System.out.println("Process: " + x.getKey().getPID() + "\t" + "Priority: " + x.getKey().getPriority() + "\t" + "Color: " + x.getColor());
     		inOrderTreeWalk(x.getRightChild());
     	}
     }
