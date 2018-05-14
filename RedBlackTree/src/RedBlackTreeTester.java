@@ -73,7 +73,7 @@ public class RedBlackTreeTester {
 				    	
 						Node z = t.rbSearch(t.getRoot(), priorityInput);
 						
-						if (z == null) {
+						if (z == t.getNil()) {
 							System.out.println("Invalid input... Please try again...");
 							validInput = false;
 						}
