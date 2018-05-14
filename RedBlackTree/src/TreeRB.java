@@ -53,8 +53,7 @@ public class TreeRB {
     	z.setLeftChild(t.getNil());
     	z.setRightChild(t.getNil());
     	z.color = "RED";
-    	
-    	//TODO Call rbInsertFixUP
+    	rbInsertFixUp(t, z);
     }
     
     /**
@@ -77,12 +76,12 @@ public class TreeRB {
     			// Case 2: if z is the right child. LEFT then RIGHT rotation...
     			else if (z == z.getParent().getRightChild()) { 
     				z = z.getParent();
-    				//TODO LEFT-ROTATE(T,Z)
+    				leftRotate(t, z);
     			}
     			// Case 3: if z is the left child. RIGHT rotation only...
 				z.getParent().setColor("BLACK"); //Case 3
 				z.getParent().getParent().setColor("RED");
-				//TODO RIGHT-ROTATE(T,Z)
+				rightRotate(t, z.getParent().getParent());
     		}
     		else { // if z's parent is a right child
     			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
@@ -96,12 +95,12 @@ public class TreeRB {
     			 // Case 2: if z is the left child. RIGHT then LEFT rotation...
     			else if (z == z.getParent().getLeftChild()) {
     				z = z.getParent();
-    				//TODO RIGHT-ROTATE(T,Z)
+    				rightRotate(t,z);
     			}
     			// Case 3: if z is the right child. LEFT rotation only...
 				z.getParent().setColor("BLACK"); //Case 3
 				z.getParent().getParent().setColor("RED");
-				//TODO LEFT-ROTATE(T,Z)	
+				leftRotate(t, z.getParent().getParent());
     		}
     	}
     	t.getRoot().setColor("BLACK");
@@ -126,6 +125,54 @@ public class TreeRB {
     		u.getParent().setRightChild(v);
     	}
     	v.setParent(u.getParent());
+    }
+    
+    /**
+     * This function does a left rotation
+     * TODO: Describe
+     */
+    public void leftRotate(TreeRB t, Node x) {
+    	Node y = x.getRightChild();
+    	x.setRightChild(y.getLeftChild());
+    	if (y.getLeftChild() != t.getNil()) {
+    		y.getLeftChild().setParent(x);
+    	}
+    	y.setParent(x.getParent());
+    	if (x.getParent() == t.getNil()) {
+    		t.setRoot(y);
+    	}
+    	else if (x == x.getParent().getLeftChild()){
+    		x.getParent().setLeftChild(y);
+    	}
+    	else {
+    		x.getParent().setRightChild(y);
+    	}
+    	y.setLeftChild(x);
+    	x.setParent(y);
+    }
+    
+    /**
+     * This function does a right rotation
+     * TODO: Describe
+     */
+    public void rightRotate(TreeRB t, Node x) {
+    	Node y = x.getLeftChild();
+    	x.setLeftChild(y.getRightChild());
+    	if (y.getRightChild() != t.getNil()) {
+    		y.getRightChild().setParent(x);
+    	}
+    	y.setParent(x.getParent());
+    	if (x.getParent() == t.getNil()) {
+    		t.setRoot(y);
+    	}
+    	else if (x == x.getParent().getRightChild()){
+    		x.getParent().setRightChild(y);
+    	}
+    	else {
+    		x.getParent().setLeftChild(y);
+    	}
+    	y.setRightChild(x);
+    	x.setParent(y);
     }
     
     /**
