@@ -1,10 +1,10 @@
 
 public class TreeRB {
-    Node treeNil = null; // sentinel nil
-    Node root = treeNil;
+    Node nil = new Node(); // sentinel nil
+    Node root = nil;
     
     /**
-     * Constructor to create a empty TreeRB with root = null
+     * Constructor to create a empty TreeRB with root = nil
      */
     TreeRB() { 
     }
@@ -17,6 +17,9 @@ public class TreeRB {
      */
     public void processInsert(Process p) {
     	Node z = new Node(p);
+    	z.setParent(nil);
+    	z.setLeftChild(nil);
+    	z.setRightChild(nil);
     	rbInsert(this, z);
     }
     
@@ -29,7 +32,7 @@ public class TreeRB {
     	Node y = t.getNil(); //parent node
     	Node x = t.getRoot(); //current node
     	
-    	while (x != null) {
+    	while (x != t.getNil()) { //TODO SOURCE OF BUG?
     		y = x;
     		if (z.compareTo(x) == -1) {
     			x = x.getLeftChild();
@@ -62,46 +65,48 @@ public class TreeRB {
     public void rbInsertFixUp(TreeRB t, Node z) {
     	Node y = new Node(); //pointer #2
     	
-    	while (z.getParent().color == "RED") {
-    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
-    			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
-    			// Case 1: Z's uncle is red... Re-COLOR
-    			if (y.getColor() == "RED") { 
-    				z.getParent().setColor("BLACK");
-    				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
-    				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
-    				z = z.getParent().getParent(); // move pointer z up the tree
-    			} // otherwise if Z's uncle was black to begin with skip... lines 71-73
-    			
-    			// Case 2: if z is the right child. LEFT then RIGHT rotation...
-    			else if (z == z.getParent().getRightChild()) { 
-    				z = z.getParent();
-    				leftRotate(t, z);
-    			}
-    			// Case 3: if z is the left child. RIGHT rotation only...
-				z.getParent().setColor("BLACK"); //Case 3
-				z.getParent().getParent().setColor("RED");
-				rightRotate(t, z.getParent().getParent());
-    		}
-    		else { // if z's parent is a right child
-    			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
-    			// Case 1: Z's uncle is red... Re-COLOR
-    			if (y.getColor() == "RED") { 
-    				z.getParent().setColor("BLACK");
-    				y.setColor("BLACK");
-    				z.getParent().getParent().setColor("RED"); 
-    				z = z.getParent().getParent();
-    			}
-    			 // Case 2: if z is the left child. RIGHT then LEFT rotation...
-    			else if (z == z.getParent().getLeftChild()) {
-    				z = z.getParent();
-    				rightRotate(t,z);
-    			}
-    			// Case 3: if z is the right child. LEFT rotation only...
-				z.getParent().setColor("BLACK"); //Case 3
-				z.getParent().getParent().setColor("RED");
-				leftRotate(t, z.getParent().getParent());
-    		}
+    	if (z.getParent() == t.getNil()) { //gotta check if z's parent exists...
+	    	while (z.getParent().color == "RED") {
+	    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
+	    			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
+	    			// Case 1: Z's uncle is red... Re-COLOR
+	    			if (y.getColor() == "RED") { 
+	    				z.getParent().setColor("BLACK");
+	    				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
+	    				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
+	    				z = z.getParent().getParent(); // move pointer z up the tree
+	    			} // otherwise if Z's uncle was black to begin with skip... lines 71-73
+	    			
+	    			// Case 2: if z is the right child. LEFT then RIGHT rotation...
+	    			else if (z == z.getParent().getRightChild()) { 
+	    				z = z.getParent();
+	    				leftRotate(t, z);
+	    			}
+	    			// Case 3: if z is the left child. RIGHT rotation only...
+					z.getParent().setColor("BLACK"); //Case 3
+					z.getParent().getParent().setColor("RED");
+					rightRotate(t, z.getParent().getParent());
+	    		}
+	    		else { // if z's parent is a right child
+	    			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
+	    			// Case 1: Z's uncle is red... Re-COLOR
+	    			if (y.getColor() == "RED") { 
+	    				z.getParent().setColor("BLACK");
+	    				y.setColor("BLACK");
+	    				z.getParent().getParent().setColor("RED"); 
+	    				z = z.getParent().getParent();
+	    			}
+	    			 // Case 2: if z is the left child. RIGHT then LEFT rotation...
+	    			else if (z == z.getParent().getLeftChild()) {
+	    				z = z.getParent();
+	    				rightRotate(t,z);
+	    			}
+	    			// Case 3: if z is the right child. LEFT rotation only...
+					z.getParent().setColor("BLACK"); //Case 3
+					z.getParent().getParent().setColor("RED");
+					leftRotate(t, z.getParent().getParent());
+	    		}
+	    	}
     	}
     	t.getRoot().setColor("BLACK");
     }
@@ -183,21 +188,21 @@ public class TreeRB {
      * @param int k // the priority
      * @return Node x //a node that was searched for.
      * 
-     * x returns null whenever the key entered in does not exist in the TreeRB
+     * x returns nil whenever the key entered in does not exist in the TreeRB
      */
     public Node rbSearch (Node x, int k) {
-    	while (x != null && k != x.getKey().getPriority()) {
+    	while (x != this.getNil() && k != x.getKey().getPriority()) {
     		if (k < x.key.getPriority()) {
-    			if (x.getLeftChild() == null) {
-    				return null; // for cases where the key entered into the search does not exist
+    			if (x.getLeftChild() == this.getNil()) {
+    				return this.getNil(); // for cases where the key entered into the search does not exist
     			}
     			else {
         			x = x.getLeftChild();
     			}
     		}
     		else {
-    			if (x.getRightChild() == null) {
-    				return null; // for cases where the key entered into the search does not exist
+    			if (x.getRightChild() == this.getNil()) {
+    				return this.getNil(); // for cases where the key entered into the search does not exist
     			}
     			else {
         			x = x.getRightChild();
@@ -215,10 +220,10 @@ public class TreeRB {
     public void rbDelete(TreeRB t, Node z) {
     	Node y = new Node();
     	
-    	if (z.getLeftChild() == null) {
+    	if (z.getLeftChild() == t.getNil()) {
     		rbTransplant(t, z, z.getRightChild());
     	}
-    	else if (z.getRightChild() == null) {
+    	else if (z.getRightChild() == t.getNil()) {
     		rbTransplant(t, z, z.getLeftChild());
     	}
     	else {
@@ -242,7 +247,7 @@ public class TreeRB {
      * @param Node x // The root of the TreeRB
      */
     public void inOrderTreeWalk(Node x) {
-    	if (x != null) {
+    	if (x != this.getNil()) {
     		inOrderTreeWalk(x.getLeftChild());
     		System.out.println("Process: " + x.getKey().getPID() + "\t" + "Priority: " + x.getKey().getPriority());
     		inOrderTreeWalk(x.getRightChild());
@@ -255,7 +260,7 @@ public class TreeRB {
      * @return Node x
      */
     public Node treeMinimum(Node x) {
-    	while (x.left != null) {
+    	while (x.left != this.getNil()) {
     		x = x.getLeftChild();
     	}
     	return x;
@@ -276,7 +281,7 @@ public class TreeRB {
      * @return Node root
      */
     public Node getNil() {
-    	return treeNil;
+    	return nil;
     }
     
     /**

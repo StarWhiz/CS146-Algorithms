@@ -19,7 +19,7 @@ public class Node implements Comparable<Node>{
     	left = null;
     	right = null;
     	parent = null;
-    	color = null;
+    	color = "BLACK"; //rb-trees have black nil nodes
     }
 
     /**
@@ -30,9 +30,6 @@ public class Node implements Comparable<Node>{
      */
 	public Node(Process p) {
         key = p;
-    	left = null;
-    	right = null;
-    	parent = null;
     }
 
 	/**
