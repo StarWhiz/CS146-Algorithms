@@ -7,6 +7,9 @@ public class TreeRB {
      * Constructor to create a empty TreeRB with root = nil
      */
     TreeRB() { 
+    	root.setLeftChild(nil);
+    	root.setRightChild(nil);
+    	root.setParent(nil);
     }
     
     /**
@@ -32,7 +35,7 @@ public class TreeRB {
     	Node y = t.getNil(); //parent node
     	Node x = t.getRoot(); //current node
     	
-    	while (x != t.getNil()) { //TODO SOURCE OF BUG?
+    	while (x != t.getNil()) {
     		y = x;
     		if (z.compareTo(x) == -1) {
     			x = x.getLeftChild();
@@ -54,7 +57,7 @@ public class TreeRB {
     	}
     	z.setLeftChild(t.getNil());
     	z.setRightChild(t.getNil());
-    	z.color = "RED";
+    	z.setColor("RED");
     	rbInsertFixUp(t, z);
     }
     
@@ -63,7 +66,7 @@ public class TreeRB {
      */
     public void rbInsertFixUp(TreeRB t, Node z) {
     	Node y = new Node(); //pointer #2
-	    	while (z.getParent().color == "RED") {
+	    	while (z.getParent().getColor() == "RED") {
 	    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
 	    			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
 	    			// Case 1: Z's uncle is red... Re-COLOR
