@@ -21,7 +21,6 @@ public class TreeRB {
      */
     public void processInsert(Process p) {
     	Node z = new Node(p);
-    	z.setParent(nil);
     	z.setLeftChild(nil);
     	z.setRightChild(nil);
     	rbInsert(this, z);
@@ -33,8 +32,8 @@ public class TreeRB {
      * @param Node z
      */
     public void rbInsert(TreeRB t, Node z) {
-    	Node y = t.getNil(); //parent node
-    	Node x = t.getRoot(); //current node
+    	Node y = t.getNil(); //pointer y
+    	Node x = t.getRoot(); //pointer x initial root node
     	
     	while (x != t.getNil()) {
     		y = x;
@@ -46,7 +45,6 @@ public class TreeRB {
     		}
     	}
     	z.setParent(y);
-    	
     	if (y == t.getNil()) {
     		t.setRoot(z);
     	}
@@ -60,6 +58,7 @@ public class TreeRB {
     	z.setRightChild(t.getNil());
     	z.setColor("RED");
     	rbInsertFixUp(t, z);
+
     }
     
     /**
@@ -67,10 +66,7 @@ public class TreeRB {
      */
     public void rbInsertFixUp(TreeRB t, Node z) {
     	Node y = null; //pointer #2
-    	while (z.getParent().getColor().equals("RED")) { //TODO Did i screw this while loop up? Do i need the &&s?
-    		
-    		System.out.println("LOOPING" + z.getParent().getColor());  // TODO Debug1
-    		
+    	while (z.getParent().getColor().equals("RED")) {
     		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
     			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
     			// Case 1: Z's uncle is red... Re-COLOR
@@ -79,28 +75,19 @@ public class TreeRB {
     				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
     				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
     				z = z.getParent().getParent(); // move pointer z up the tree z = grandpa
-    	    		System.out.println("Left Case1" + z.getParent().getColor()); // TODO Case 1
     			} // otherwise if Z's uncle was black to begin with skip... lines 71-73
-    			
+   
     			// Case 2: if z is the right child. LEFT then RIGHT rotation...
-    			else if (z == z.getParent().getRightChild()) { 
-    				z = z.getParent(); //pointer now parent
-    				leftRotate(t, z);
-    	    		System.out.println("Left Case2" + z.getParent().getColor());  // TODO Case 2
+    			else {
+    				if (z == z.getParent().getRightChild()) { 
+        				z = z.getParent(); //pointer now parent
+        				leftRotate(t, z);
+        			}
+	    			// Case 3: if z is the left child. RIGHT rotation only...
+					z.getParent().setColor("BLACK");																						    		
+					z.getParent().getParent().setColor("RED");		
+					rightRotate(t, z.getParent().getParent());
     			}
-    			// Case 3: if z is the left child. RIGHT rotation only...
-	    		System.out.println("Left Case3" + z.getParent().getColor());  // TODO Case 3
-				z.getParent().setColor("BLACK");
-    			System.out.println("Left Case 3 z.p.color: " + z.getParent().getColor()); 
-			    		//TODO 4 Checking parent grandpa
-			    		if (z.getParent() == z.getParent().getParent()){
-			    			System.out.println("Left Case 3: Well Crap Parent is the grandpa wtf?"); 
-			    		}
-			    		//END TODO 4 Checking parent grandpa																									    		
-				z.getParent().getParent().setColor("RED");		
-    			System.out.println("Left Case 3 z.p.color: " + z.getParent().getColor()); 
-				rightRotate(t, z.getParent().getParent());
-
     		}
     		else { // if z's parent is a right child
     			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
@@ -110,28 +97,20 @@ public class TreeRB {
     				y.setColor("BLACK");
     				z.getParent().getParent().setColor("RED"); 
     				z = z.getParent().getParent();
-    	    		System.out.println("Right Case1" + z.getParent().getColor()); // TODO Case 1
     			}
     			 // Case 2: if z is the left child. RIGHT then LEFT rotation...
-    			else if (z == z.getParent().getLeftChild()) {
-    				z = z.getParent();
-    				rightRotate(t,z);
-    	    		System.out.println("Right Case2" + z.getParent().getColor()); // TODO Case 1
-    			}
+    			else {
+    				if (z == z.getParent().getLeftChild()) {
+        				z = z.getParent();
+        				rightRotate(t,z);
+        			}
+    			
     			// Case 3: if z is the right child. LEFT rotation only...
-	    		System.out.println("Right Case3" + z.getParent().getColor()); // TODO Case 1
 				z.getParent().setColor("BLACK"); //Case 3
-				
-			    		//TODO 4 Checking parent grandpa
-			    		if (z.getParent() == z.getParent().getParent()){
-			    			System.out.println("Right Case 3: Well Crap Parent is the grandpa wtf?"); 
-			    		}
-			    		//END TODO 4 Checking parent grandpa	
 				z.getParent().getParent().setColor("RED");
 				leftRotate(t, z.getParent().getParent());
-				
+    			}
     		}
-    		System.out.println("End of LOOP" + z.getParent().getColor());
     	}
     	t.getRoot().setColor("BLACK");
     }
@@ -162,7 +141,6 @@ public class TreeRB {
      * TODO: Describe
      */
     public void leftRotate(TreeRB t, Node x) {
-    	System.out.println("LeftRotate got called..."); //TODO right rotate
     	Node y = x.getRightChild();
     	x.setRightChild(y.getLeftChild());
     	if (y.getLeftChild() != t.getNil()) {
@@ -187,7 +165,6 @@ public class TreeRB {
      * TODO: Describe
      */
     public void rightRotate(TreeRB t, Node x) {
-    	System.out.println("RightRotate got called..."); //TODO right rotate
     	Node y = x.getLeftChild();
     	x.setLeftChild(y.getRightChild());
     	if (y.getRightChild() != t.getNil()) {

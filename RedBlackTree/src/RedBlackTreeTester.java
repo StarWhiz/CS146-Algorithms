@@ -6,30 +6,11 @@ public class RedBlackTreeTester {
 	
 	public static void main(String[] args) {
 		// creates 20 Processes with random priorities into the Tree 
-		
-		/**
-		for (int i = 0; i < 3 ; i++) {
+		for (int i = 0; i < 20 ; i++) {
 			Process newProcess = new Process(currentPID); 
 			t.processInsert(newProcess);
 			currentPID++;
 		}
-		*/
-
-		Process process0 = new Process(1);
-		process0.setPriority(20);
-		Process process1 = new Process(2);
-		process1.setPriority(10);
-		Process process2 = new Process(3);
-		process2.setPriority(25);
-		Process process3 = new Process(4);
-		process3.setPriority(5);
-		
-		t.processInsert(process0);
-		t.processInsert(process1);
-		t.processInsert(process2);
-		t.processInsert(process3);
-
-		
 		startMenu();
 
 	}
