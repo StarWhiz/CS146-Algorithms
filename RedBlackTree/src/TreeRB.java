@@ -10,6 +10,7 @@ public class TreeRB {
     	root.setLeftChild(nil);
     	root.setRightChild(nil);
     	root.setParent(nil);
+    	root.setColor("BLACK");
     }
     
     /**
@@ -65,48 +66,67 @@ public class TreeRB {
      * This function is used to fix any violations of the RBTree caused by treeInsert.
      */
     public void rbInsertFixUp(TreeRB t, Node z) {
-    	Node y = new Node(); //pointer #2
-	    	while (z.getParent().getColor() == "RED") {
-	    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
-	    			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
-	    			// Case 1: Z's uncle is red... Re-COLOR
-	    			if (y.getColor() == "RED") { 
-	    				z.getParent().setColor("BLACK");
-	    				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
-	    				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
-	    				z = z.getParent().getParent(); // move pointer z up the tree
-	    			} // otherwise if Z's uncle was black to begin with skip... lines 71-73
-	    			
-	    			// Case 2: if z is the right child. LEFT then RIGHT rotation...
-	    			else if (z == z.getParent().getRightChild()) { 
-	    				z = z.getParent();
-	    				leftRotate(t, z);
-	    			}
-	    			// Case 3: if z is the left child. RIGHT rotation only...
-					z.getParent().setColor("BLACK"); //Case 3
-					z.getParent().getParent().setColor("RED");
-					rightRotate(t, z.getParent().getParent());
+    	Node y = null; //pointer #2
+    	while (z.getParent() != null && z.getParent().getColor() == "RED") {
+    		
+    		System.out.println("LOOPING" + z.getParent().getColor());  // TODO Debug1
+    		
+    		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
+    			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
+    			// Case 1: Z's uncle is red... Re-COLOR
+    			if (y.getColor() == "RED") { 
+    				z.getParent().setColor("BLACK");
+    				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
+    				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
+    				z = z.getParent().getParent(); // move pointer z up the tree
+    	    		System.out.println("Case1" + z.getParent().getColor()); // TODO Case 1
+    			} // otherwise if Z's uncle was black to begin with skip... lines 71-73
+    			
+    			// Case 2: if z is the right child. LEFT then RIGHT rotation...
+    			else if (z == z.getParent().getRightChild()) { 
+    				z = z.getParent();
+    				leftRotate(t, z);
+    	    		System.out.println("Case2" + z.getParent().getColor());  // TODO Case 2
+    			}
+    			// Case 3: if z is the left child. RIGHT rotation only...
+				z.getParent().setColor("BLACK");
+	    		System.out.println("The Parent Color Should be Black: " + z.getParent().getColor()); //TODO Case 3
+	    		//TODO 4 Checking parent grandpa
+	    		if (z.getParent() == z.getParent().getParent()){
+	    			System.out.println("Well Crap Parent is the grandpa wtf?"); 
+	    			// oh i see z moved up
 	    		}
-	    		else { // if z's parent is a right child
-	    			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
-	    			// Case 1: Z's uncle is red... Re-COLOR
-	    			if (y.getColor() == "RED") { 
-	    				z.getParent().setColor("BLACK");
-	    				y.setColor("BLACK");
-	    				z.getParent().getParent().setColor("RED"); 
-	    				z = z.getParent().getParent();
-	    			}
-	    			 // Case 2: if z is the left child. RIGHT then LEFT rotation...
-	    			else if (z == z.getParent().getLeftChild()) {
-	    				z = z.getParent();
-	    				rightRotate(t,z);
-	    			}
-	    			// Case 3: if z is the right child. LEFT rotation only...
-					z.getParent().setColor("BLACK"); //Case 3
-					z.getParent().getParent().setColor("RED");
-					leftRotate(t, z.getParent().getParent());
-	    		}
-	    	}
+				z.getParent().getParent().setColor("RED");
+			
+	    		System.out.println("The Parent Color Should be still Black: " + z.getParent().getColor()); //TODO Case 3
+	    		
+				rightRotate(t, z.getParent().getParent());
+
+    		}
+    		else { // if z's parent is a right child
+    			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
+    			// Case 1: Z's uncle is red... Re-COLOR
+    			if (y.getColor() == "RED") { 
+    				z.getParent().setColor("BLACK");
+    				y.setColor("BLACK");
+    				z.getParent().getParent().setColor("RED"); 
+    				z = z.getParent().getParent();
+    			}
+    			 // Case 2: if z is the left child. RIGHT then LEFT rotation...
+    			else if (z == z.getParent().getLeftChild()) {
+    				z = z.getParent();
+    				rightRotate(t,z);
+    			}
+    			// Case 3: if z is the right child. LEFT rotation only...
+				z.getParent().setColor("BLACK"); //Case 3
+	    		System.out.println("2. The Parent Color Should be Black: " + z.getParent().getColor()); //TODO Case 3
+				z.getParent().getParent().setColor("RED");
+	    		System.out.println("2. The Parent Color Should be Black: " + z.getParent().getColor()); //TODO Case 3
+				leftRotate(t, z.getParent().getParent());
+				
+    		}
+    		System.out.println("End of LOOP" + z.getParent().getColor());
+    	}
     	t.getRoot().setColor("BLACK");
     }
     
@@ -246,10 +266,32 @@ public class TreeRB {
      * @param Node x // The root of the TreeRB
      */
     public void inOrderTreeWalk(Node x) {
-    	if (x != this.getNil()) {
+    	if (x != nil || x == null) {
     		inOrderTreeWalk(x.getLeftChild());
-    		System.out.println("Process: " + x.getKey().getPID() + "\t" + "Priority: " + x.getKey().getPriority() + "\t" + "Color: " + x.getColor());
+    		System.out.print("Process: " + x.getKey().getPID() + "\t" + "Priority: " + x.getKey().getPriority() + "\t" + "Color: " + x.getColor());
+    		if (x.getParent() != nil) {
+        		System.out.print("\t" + "Parent = " + x.getParent().getKey().getPID() + " // ");
+    		}
+    		else {
+    			System.out.print("\t" + "Parent = nil" + " // ");
+    		}
+    		
+    		if (x.getLeftChild() != nil) {
+        		System.out.print("Left Child = " + x.getLeftChild().getKey().getPID() + " // ");
+    		}
+    		else {
+    			System.out.print("Left Child = nil" + " // ");
+    		}
+    		if (x.getRightChild() != nil) {
+    		System.out.println("Right Child = " + x.getRightChild().getKey().getPID());
+    		}	
+    		else {
+    			System.out.println("Right Child = nil");
+    		}
     		inOrderTreeWalk(x.getRightChild());
+    	}
+    	else {
+    		return;
     	}
     }
     
