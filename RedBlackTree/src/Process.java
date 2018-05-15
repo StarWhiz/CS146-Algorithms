@@ -16,7 +16,7 @@ public class Process implements Comparable<Process> {
 	 */
 	Process(int currentPID) {
 		//priority = currentPID +1000; // FOR DEBUGGING
-		//priority = (int) (Math.random()*9999 + 1); //TODO turn back on when debugging is done
+		priority = (int) (Math.random()*9999 + 1); //TODO turn back on when debugging is done
 		processID = "P" + currentPID;
 	}
 	

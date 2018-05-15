@@ -9,26 +9,28 @@ public class RedBlackTreeTester {
 		System.out.println("Hello World");
 		
 		// creates 20 Processes with random priorities into the Tree 
-		/*
-		for (int i = 0; i < 4 ; i++) {
+		
+		for (int i = 0; i < 3 ; i++) {
 			Process newProcess = new Process(currentPID); 
 			t.processInsert(newProcess);
 			currentPID++;
 		}
-		*/
+		
+		/*
 		Process process0 = new Process(1);
-		process0.setPriority(1000);
+		process0.setPriority(7);
 		Process process1 = new Process(2);
-		process1.setPriority(2000);
-		Process process2 = new Process(3);
-		process2.setPriority(3000);
-		Process process3 = new Process(4);
-		process3.setPriority(4000);
+		process1.setPriority(2);
+		Process process2 = new Process(30);
+		process2.setPriority(5);
+		Process process3 = new Process(1000);
+		process3.setPriority(90);
 		
 		t.processInsert(process0);
 		t.processInsert(process1);
 		t.processInsert(process2);
 		//t.processInsert(process3);
+		*/
 		
 		startMenu();
 
@@ -64,6 +66,7 @@ public class RedBlackTreeTester {
 			System.out.println("1. Show sorted list Processes from binary search tree. (inOrderTreeWalk)");
 			System.out.println("2. Delete a process from the tree based on it's priority.");
 			System.out.println("3. Insert a random process into the binary search tree");
+			System.out.println("4. Search a process by it's priority.");
 			System.out.println("Q. Quit.\n");
 			
 			System.out.print("Please type in an option and press enter: ");
@@ -110,6 +113,29 @@ public class RedBlackTreeTester {
 					t.processInsert(newProcess);
 					t.inOrderTreeWalk(t.getRoot());
 			    	break;
+			    case "4":
+			    	boolean validInput2 = false;
+			    	while (!validInput2) {
+				    	int priorityInput;
+				    	System.out.print("\nPlease enter the priority of the process you want to search for: ");
+				    	while (!scanPriority.hasNextInt()) {
+				    		scanPriority.next();
+				    	}
+				    	priorityInput = scanPriority.nextInt();
+				    	
+						Node z = t.rbSearch(t.getRoot(), priorityInput);
+						
+						if (z == t.getNil()) {
+							System.out.println("Invalid input... Please try again...");
+							validInput2 = false;
+						}
+						else {
+							validInput2 = true;	
+							System.out.print("Process FOUND!... ");
+							printNodeKey(z);
+						}
+			    	}
+			    	break;	    	
 			    case "Q": 
 			    case "q": 
 			    	scan.close();

@@ -91,12 +91,14 @@ public class TreeRB {
     			// Case 3: if z is the left child. RIGHT rotation only...
 	    		System.out.println("Left Case3" + z.getParent().getColor());  // TODO Case 3
 				z.getParent().setColor("BLACK");
+    			System.out.println("Left Case 3 z.p.color: " + z.getParent().getColor()); 
 			    		//TODO 4 Checking parent grandpa
 			    		if (z.getParent() == z.getParent().getParent()){
 			    			System.out.println("Left Case 3: Well Crap Parent is the grandpa wtf?"); 
 			    		}
 			    		//END TODO 4 Checking parent grandpa																									    		
-				z.getParent().getParent().setColor("RED");				
+				z.getParent().getParent().setColor("RED");		
+    			System.out.println("Left Case 3 z.p.color: " + z.getParent().getColor()); 
 				rightRotate(t, z.getParent().getParent());
 
     		}
@@ -119,6 +121,7 @@ public class TreeRB {
     			// Case 3: if z is the right child. LEFT rotation only...
 	    		System.out.println("Right Case3" + z.getParent().getColor()); // TODO Case 1
 				z.getParent().setColor("BLACK"); //Case 3
+				
 			    		//TODO 4 Checking parent grandpa
 			    		if (z.getParent() == z.getParent().getParent()){
 			    			System.out.println("Right Case 3: Well Crap Parent is the grandpa wtf?"); 
