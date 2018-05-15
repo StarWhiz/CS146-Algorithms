@@ -9,7 +9,7 @@ public class RedBlackTreeTester {
 		System.out.println("Hello World");
 		
 		// creates 20 Processes with random priorities into the Tree 
-		for (int i = 0; i < 3 ; i++) {
+		for (int i = 0; i < 4 ; i++) {
 			Process newProcess = new Process(currentPID); 
 			t.processInsert(newProcess);
 			currentPID++;
