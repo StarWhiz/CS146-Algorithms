@@ -67,14 +67,14 @@ public class TreeRB {
      */
     public void rbInsertFixUp(TreeRB t, Node z) {
     	Node y = null; //pointer #2
-    	while (z != null && z.parent != null && z.getParent().getColor() == "RED") { //TODO Did i screw this while loop up? Do i need the &&s?
+    	while (z.getParent().getColor().equals("RED")) { //TODO Did i screw this while loop up? Do i need the &&s?
     		
     		System.out.println("LOOPING" + z.getParent().getColor());  // TODO Debug1
     		
     		if (z.getParent() == z.getParent().getParent().getLeftChild()) { // if z's parent is a left child
     			y = z.getParent().getParent().getRightChild(); // y = z's uncle...
     			// Case 1: Z's uncle is red... Re-COLOR
-    			if (y.getColor() == "RED") { 
+    			if (y.getColor().equals("RED")) { 
     				z.getParent().setColor("BLACK");
     				y.setColor("BLACK"); // Both brothers and sisters are now black (z's uncle and parent)
     				z.getParent().getParent().setColor("RED"); //Grandpa is now red instead of black
@@ -103,7 +103,7 @@ public class TreeRB {
     		else { // if z's parent is a right child
     			y = z.getParent().getParent().getLeftChild(); // y = z's uncle...
     			// Case 1: Z's uncle is red... Re-COLOR
-    			if (y.getColor() == "RED") { 
+    			if (y.getColor().equals("RED")) { 
     				z.getParent().setColor("BLACK");
     				y.setColor("BLACK");
     				z.getParent().getParent().setColor("RED"); 
